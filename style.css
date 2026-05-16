@@ -24,7 +24,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 .ex-row-bottom{align-items:flex-start;margin-bottom:24px;}
 .cat-box{cursor:pointer;padding:16px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;transition:filter 0.15s;}
 .cat-box:hover{filter:brightness(0.96);}
-.cat-box.selected{outline:2px solid #37352f;outline-offset:-2px;cursor:default;}
+.cat-box.selected{box-shadow:inset 0 0 0 2px currentColor;cursor:default;}
 .cat-box-info{transition:opacity 0.2s;pointer-events:none;}
 .cat-box-name{font-size:13px;font-weight:600;}
 .cat-box-count{font-size:11px;opacity:0.6;margin-top:2px;}
@@ -47,12 +47,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 .tags-cloud{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:24px;}
 .tv-tag{font-size:11px;padding:3px 10px;border:1px solid transparent;cursor:pointer;font-family:inherit;user-select:none;}
 .tv-tag:hover{filter:brightness(0.92);}
-.tv-tag.active-tv-tag{font-weight:700;outline:2px solid #37352f;outline-offset:1px;}
-.tv-Design{background:#FDDEDE;color:#9E3C3C;border-color:#f5c4c4;}
-.tv-Tools{background:#FEF3D7;color:#9A6D1F;border-color:#f5e3b0;}
-.tv-LearningCommunity{background:#E8DEEE;color:#6B3E8A;border-color:#d9c8e8;}
-.tv-Collaborate{background:#D0EDE8;color:#1A6860;border-color:#b0ddd6;}
-.tv-PassTime{background:#D3E5EF;color:#1E5F82;border-color:#b8d5e5;}
+.tv-tag.active-tv-tag{background:#37352f !important;color:#fff !important;border-color:#37352f !important;font-weight:700;}
+.tv-Design             {background:#FDDEDE;color:#9E3C3C;border-color:#f5c4c4;}
+.tv-Tools              {background:#FEF3D7;color:#9A6D1F;border-color:#f5e3b0;}
+.tv-EyeCandy           {background:#F0E6F6;color:#6B3A8A;border-color:#ddc8f0;}
+.tv-LearningCommunity  {background:#DBEDDB;color:#2F6A3F;border-color:#c0dfc0;}
+.tv-Collaboration      {background:#D0EDE8;color:#1A6860;border-color:#b0ddd6;}
+.tv-TimePass           {background:#D3E5EF;color:#1E5F82;border-color:#b8d5e5;}
 .tv-count{font-size:13px;color:#787774;}
 
 /* TABLE */
@@ -60,11 +61,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,san
 .cat-label{font-size:11px;color:#787774;margin-right:2px;text-transform:uppercase;letter-spacing:0.06em;}
 .cat-pill{font-size:12px;padding:3px 10px;border:1px solid transparent;cursor:pointer;user-select:none;font-family:inherit;}
 .cat-pill.active{font-weight:700;}
-.cp-Design{background:#FDDEDE;color:#9E3C3C;border-color:#f5c4c4;} .cp-Design.active{background:#f5b0b0;border-color:#c4534a;}
-.cp-Tools{background:#FEF3D7;color:#9A6D1F;border-color:#f5e3b0;} .cp-Tools.active{background:#f5e0a0;border-color:#c17d31;}
-.cp-LearningCommunity{background:#E8DEEE;color:#6B3E8A;border-color:#d9c8e8;} .cp-LearningCommunity.active{background:#d4bce8;border-color:#8B5CB0;}
-.cp-Collaborate{background:#D0EDE8;color:#1A6860;border-color:#b0ddd6;} .cp-Collaborate.active{background:#a8d8d0;border-color:#2A8878;}
-.cp-PassTime{background:#D3E5EF;color:#1E5F82;border-color:#b8d5e5;} .cp-PassTime.active{background:#b0d0e8;border-color:#2d7fa6;}
+.cp-Design            {background:#FDDEDE;color:#9E3C3C;border-color:#f5c4c4;} .cp-Design.active            {background:#f5b0b0;border-color:#c4534a;}
+.cp-Tools             {background:#FEF3D7;color:#9A6D1F;border-color:#f5e3b0;} .cp-Tools.active             {background:#f5e0a0;border-color:#c17d31;}
+.cp-EyeCandy          {background:#F0E6F6;color:#6B3A8A;border-color:#ddc8f0;} .cp-EyeCandy.active          {background:#e0c8f5;border-color:#8B5CB0;}
+.cp-LearningCommunity {background:#DBEDDB;color:#2F6A3F;border-color:#c0dfc0;} .cp-LearningCommunity.active {background:#b8dfb8;border-color:#448361;}
+.cp-Collaboration     {background:#D0EDE8;color:#1A6860;border-color:#b0ddd6;} .cp-Collaboration.active     {background:#a8d8d0;border-color:#2A8878;}
+.cp-TimePass          {background:#D3E5EF;color:#1E5F82;border-color:#b8d5e5;} .cp-TimePass.active          {background:#b0d0e8;border-color:#2d7fa6;}
 .search-row{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap;}
 input[type="text"]{font-family:inherit;font-size:14px;padding:6px 10px;border:1px solid #c7c7c5;color:#37352f;width:280px;outline:none;background:#fff;border-radius:0;}
 input[type="text"]:focus{border-color:#37352f;}
@@ -80,11 +82,12 @@ td.td-domain a{color:#37352f;text-decoration:none;font-weight:500;}
 td.td-domain a:hover{text-decoration:underline;}
 .row-cats{display:flex;gap:3px;flex-wrap:wrap;}
 .row-cat{font-size:10px;padding:1px 6px;border:1px solid transparent;}
-.rc-Design{background:#FDDEDE;color:#9E3C3C;border-color:#f5c4c4;}
-.rc-Tools{background:#FEF3D7;color:#9A6D1F;border-color:#f5e3b0;}
-.rc-LearningCommunity{background:#E8DEEE;color:#6B3E8A;border-color:#d9c8e8;}
-.rc-Collaborate{background:#D0EDE8;color:#1A6860;border-color:#b0ddd6;}
-.rc-PassTime{background:#D3E5EF;color:#1E5F82;border-color:#b8d5e5;}
+.rc-Design            {background:#FDDEDE;color:#9E3C3C;border-color:#f5c4c4;}
+.rc-Tools             {background:#FEF3D7;color:#9A6D1F;border-color:#f5e3b0;}
+.rc-EyeCandy          {background:#F0E6F6;color:#6B3A8A;border-color:#ddc8f0;}
+.rc-LearningCommunity {background:#DBEDDB;color:#2F6A3F;border-color:#c0dfc0;}
+.rc-Collaboration     {background:#D0EDE8;color:#1A6860;border-color:#b0ddd6;}
+.rc-TimePass          {background:#D3E5EF;color:#1E5F82;border-color:#b8d5e5;}
 .row-tags{display:flex;gap:3px;flex-wrap:wrap;}
 .row-tag{font-size:10px;padding:1px 5px;border:1px solid #e0e0e0;color:#9b9a97;cursor:pointer;background:#fff;font-family:inherit;}
 .row-tag:hover{border-color:#37352f;color:#37352f;}
@@ -105,7 +108,3 @@ footer{margin-top:40px;padding-top:14px;border-top:1px solid #e9e9e7;font-size:1
   .ex-row{flex-wrap:wrap;}
   .cat-box{flex:0 0 calc(50% - 2px) !important;height:100px !important;}
 }
-
-/* blank explore cell */
-.cat-box-blank{flex:1;background:#f7f7f5;cursor:default;}
-.cat-box-blank:hover{filter:none;}
