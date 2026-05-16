@@ -258,7 +258,8 @@ function stumble(){
   } else {
     pool = getFiltered();
   }
-  if(pool.length) window.location.href = pool[Math.floor(Math.random()*pool.length)].url;
+  if(pool.length) window.open(pool[Math.floor(Math.random()*pool.length)].url, '_blank');
+
 }
 
 // ── BOOKMARKLET ──
