@@ -1,5 +1,5 @@
 // ── bookmarked app.js ──
-// Reads DATA, PAIRS, TAG_DOM, ALL_TAGS, FLEX_VALUES, ROW_HEIGHTS, ROWS_CFG from data.js
+// Reads DATA, PAIRS, TAG_DOM, ALL_TAGS, ROW_HEIGHTS, ROWS_CFG from data.js
 
 var CAT_CFG = {
   'Design':              {bg:'#FDDEDE',text:'#9E3C3C',border:'#f5c4c4'},
@@ -22,12 +22,25 @@ DATA.forEach(function(b){
 
 function catSlug(c){ return c.replace(/[ &]/g,''); }
 
-// ── EXPLORE ──
+// ── EXPLORE — 3×3 grid ──
 var selectedCat = null, exActiveTag = null;
 
 ROWS_CFG.forEach(function(row, ri){
   var rowEl = document.getElementById(ri===0 ? 'ex-row-top' : 'ex-row-bottom');
   row.forEach(function(cat){
+
+    // blank cell
+    if(cat === ''){
+      var blank = document.createElement('div');
+      blank.className = 'cat-box cat-box-blank';
+      blank.style.flex = '1';
+      var rowCats = row.filter(function(c){ return c !== ''; });
+      var avgH = rowCats.reduce(function(s,c){ return s+ROW_HEIGHTS[c]; },0) / rowCats.length;
+      blank.style.height = Math.round(avgH) + 'px';
+      rowEl.appendChild(blank);
+      return;
+    }
+
     var cfg = CAT_CFG[cat];
     var box = document.createElement('div');
     box.className = 'cat-box';
@@ -35,7 +48,7 @@ ROWS_CFG.forEach(function(row, ri){
     box.style.background = cfg.bg;
     box.style.color      = cfg.text;
     box.style.height     = ROW_HEIGHTS[cat] + 'px';
-    box.style.flex       = FLEX_VALUES[cat];
+    box.style.flex       = '1';
 
     var info = document.createElement('div');
     info.className = 'cat-box-info';
@@ -245,7 +258,7 @@ function render(){
 
 function onTagClick(btn){ toggleTag(btn.getAttribute('data-tag')); }
 
-// ── STUMBLE ──
+// ── STUMBLE — opens in new tab ──
 function stumble(){
   var pool;
   if(currentView==='explore'){
@@ -259,7 +272,6 @@ function stumble(){
     pool = getFiltered();
   }
   if(pool.length) window.open(pool[Math.floor(Math.random()*pool.length)].url, '_blank');
-
 }
 
 // ── BOOKMARKLET ──
@@ -275,7 +287,7 @@ function stumble(){
     s.textContent = '\uD83D\uDC19 '+p[1];
     var a = document.createElement('span'); a.style.color='#9b9a97'; a.textContent='\u2192';
     d.appendChild(s); d.appendChild(a);
-    d.onclick = function(){ window.location.href=p[0]; };
+    d.onclick = function(){ window.open(p[0], '_blank'); };
     document.body.appendChild(d);
     setTimeout(function(){ if(d.parentNode) d.remove(); }, 10000);
   }
