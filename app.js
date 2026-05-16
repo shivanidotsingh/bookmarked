@@ -4,9 +4,10 @@
 var CAT_CFG = {
   'Design':              {bg:'#FDDEDE',text:'#9E3C3C',border:'#f5c4c4'},
   'Tools':               {bg:'#FEF3D7',text:'#9A6D1F',border:'#f5e3b0'},
-  'Learning & Community':{bg:'#E8DEEE',text:'#6B3E8A',border:'#d9c8e8'},
-  'Collaborate':         {bg:'#D0EDE8',text:'#1A6860',border:'#b0ddd6'},
-  'Pass Time':           {bg:'#D3E5EF',text:'#1E5F82',border:'#b8d5e5'}
+  'Eye Candy':           {bg:'#F0E6F6',text:'#6B3A8A',border:'#ddc8f0'},
+  'Learning & Community':{bg:'#DBEDDB',text:'#2F6A3F',border:'#c0dfc0'},
+  'Collaboration':       {bg:'#D0EDE8',text:'#1A6860',border:'#b0ddd6'},
+  'Time Pass':           {bg:'#D3E5EF',text:'#1E5F82',border:'#b8d5e5'}
 };
 
 // precompute tags per category
@@ -22,25 +23,12 @@ DATA.forEach(function(b){
 
 function catSlug(c){ return c.replace(/[ &]/g,''); }
 
-// ── EXPLORE — 3×3 grid ──
+// ── EXPLORE — 2×3 grid ──
 var selectedCat = null, exActiveTag = null;
 
 ROWS_CFG.forEach(function(row, ri){
   var rowEl = document.getElementById(ri===0 ? 'ex-row-top' : 'ex-row-bottom');
   row.forEach(function(cat){
-
-    // blank cell
-    if(cat === ''){
-      var blank = document.createElement('div');
-      blank.className = 'cat-box cat-box-blank';
-      blank.style.flex = '1';
-      var rowCats = row.filter(function(c){ return c !== ''; });
-      var avgH = rowCats.reduce(function(s,c){ return s+ROW_HEIGHTS[c]; },0) / rowCats.length;
-      blank.style.height = Math.round(avgH) + 'px';
-      rowEl.appendChild(blank);
-      return;
-    }
-
     var cfg = CAT_CFG[cat];
     var box = document.createElement('div');
     box.className = 'cat-box';
@@ -258,7 +246,7 @@ function render(){
 
 function onTagClick(btn){ toggleTag(btn.getAttribute('data-tag')); }
 
-// ── STUMBLE — opens in new tab ──
+// ── STUMBLE ──
 function stumble(){
   var pool;
   if(currentView==='explore'){
