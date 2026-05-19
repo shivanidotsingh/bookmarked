@@ -178,7 +178,7 @@ function clearCurrent(){
   }
 }
 
-setView('explore');
+setView(window.innerWidth <= 640 ? 'tags' : 'explore');
 
 // ── TABLE ──
 var activeCats={}, activeTag=null, sortCol='label', sortDir=1;
