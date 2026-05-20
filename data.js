@@ -154,7 +154,7 @@ var DATA = [
   { "url":"https://designbooks.org/", "title":"Design Books | A Collection of Books on Design by Bridger Tower",
     "domain":"designbooks.org", "label":"designbooks.org", "tags":["Books"], "cats":["Time Pass"] },
   { "url":"https://designercize.com/", "title":"DESIGNERCIZE",
-    "domain":"designercize.com", "label":"designercize.com", "tags":["Quizzes"], "cats":["Learning & Community","Tools"] },
+    "domain":"designercize.com", "label":"designercize.com", "tags":["Quizzes"], "cats":["Tools"] },
   { "url":"https://www.designerslack.community/", "title":"Designer Slack Communities.",
     "domain":"designerslack.community", "label":"designerslack.community", "tags":["Design Community"], "cats":["Learning & Community"] },
   { "url":"http://designishistory.com/", "title":"Home : Design Is History",
@@ -191,6 +191,10 @@ var DATA = [
     "domain":"eggradients.com", "label":"eggradients.com", "tags":["Color"], "cats":["Design"] },
   { "url":"https://emaillove.com/inspiration/digital-product", "title":"Digital Product Email Inspiration and References",
     "domain":"emaillove.com", "label":"emaillove.com", "tags":["Contracts"], "cats":["Collaboration"] },
+  
+   { "url":"https://emilkowal.ski/ui/train-your-judgement", "title":"Train your judegment",
+    "domain":"emilkowal.ski/ui", "label":"emilkowal.ski/ui", "tags":["Quizzes"], "cats":["Tools"] },
+  
   { "url":"https://www.etymologynerd.com/infographics.html", "title":"Infographics",
     "domain":"etymologynerd.com", "label":"etymologynerd.com", "tags":["Maps"], "cats":["Time Pass"] },
   { "url":"https://everynoise.com/engenremap.html", "title":"Every Noise at Once",
