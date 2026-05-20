@@ -818,7 +818,7 @@ var ALL_TAGS = [
   "3D", "AI Images", "AI Tools", "Accessibility", "Art History", "Books",
   "CSS", "Case Studies", "Cats", "Collections", "Color", "Contracts",
   "Data Viz", "Decks", "Design Community", "Design Spells", "Drawing", "Earth",
-  "Endangered", "Eye Candy", "Film", "Games", "Generators", "Glitch Maker",
+  "Endangered", "Eye Candy", "Film", "Games", "Generators",
   "Grids", "Icebreakers", "Icons", "Illustration", "Joy", "Kids",
   "Local", "Logos", "Manifestos", "Maps", "Meetings",
   "Mockups", "Moodboards", "Mythology", "Naming", "Nature", "Note-taking",
