@@ -264,7 +264,7 @@ function stumble(){
 
 // ── BOOKMARKLET ──
 (function(){
-  var pairs = PAIRS;
+  var pairs = DATA.map(function(b){ return [b.url, b.title]; });
   var src = '(function(){var d='+JSON.stringify(pairs)+';window.open(d[Math.floor(Math.random()*d.length)][0],"_blank");})()';
   var lnk = document.getElementById('bm-link');
   lnk.href = 'javascript:'+src;
