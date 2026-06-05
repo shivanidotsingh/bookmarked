@@ -182,7 +182,7 @@ function clearCurrent(){
 setView(window.innerWidth <= 640 ? 'tags' : 'explore');
 
 // ── TABLE ──
-var activeCats={}, activeTag=null, sortCol='label', sortDir=1;
+var activeCats={}, activeTag=null, sortCol=null, sortDir=1;
 
 function toggleCat(cat){
   activeCats[cat] ? delete activeCats[cat] : (activeCats[cat]=true);
@@ -213,6 +213,7 @@ function getFiltered(){
     }
     return true;
   }).sort(function(a,b){
+    if(!sortCol) return 0;
     var av=(a[sortCol]||'').toLowerCase(), bv=(b[sortCol]||'').toLowerCase();
     return av<bv ? -sortDir : av>bv ? sortDir : 0;
   });
