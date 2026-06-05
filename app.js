@@ -1,5 +1,6 @@
 // ── bookmarked app.js ──
 // Reads DATA, PAIRS, TAG_DOM, ALL_TAGS, ROW_HEIGHTS, ROWS_CFG from data.js
+DATA.sort(function(){ return Math.random() - 0.5; });
 
 var CAT_CFG = {
   'Design':              {bg:'#FDDEDE',text:'#9E3C3C',border:'#f5c4c4'},
@@ -236,8 +237,7 @@ function render(){
       return '<button class="'+cls+'" data-tag="'+esc(t)+'" onclick="onTagClick(this)">'+esc(t)+'</button>';
     }).join('');
     rows += '<tr>'
-      +'<td class="td-domain"><a href="'+esc(b.url)+'" target="_blank" rel="noopener" title="'+esc(b.title)+'">'+esc(b.label)+'</a></td>'
-      +'<td><div class="row-cats">'+cats+'</div></td>'
+      +'<td class="td-domain"><a href="'+esc(b.url)+'" target="_blank" rel="noopener" title="'+esc(b.title)+'"><img src="https://www.google.com/s2/favicons?domain='+esc(b.url)+'&sz=32" width="14" height="14" style="vertical-align:middle;margin-right:6px;opacity:0.7;">'+esc(b.label)+'</a></td>'      +'<td><div class="row-cats">'+cats+'</div></td>'
       +'<td><div class="row-tags">'+tags+'</div></td>'
       +'</tr>';
   });
