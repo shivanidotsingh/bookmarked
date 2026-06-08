@@ -121,19 +121,14 @@ function toggleTvTag(tag){
 
 function renderTvSites(){
   var sel = Object.keys(activeTvTags);
-  var panel = document.getElementById('tv-sites-panel');
-  if(!sel.length){ panel.style.display='none'; return; }
   var seen={}, sites=[];
   DATA.forEach(function(b){
-    if(!seen[b.url] && b.tags.some(function(t){ return activeTvTags[t]; })){
+    if(!seen[b.url] && (!sel.length || b.tags.some(function(t){ return activeTvTags[t]; }))){
       seen[b.url]=true; sites.push(b);
     }
   });
-  sites.sort(function(a,b){ return a.label<b.label?-1:1; });
-  document.getElementById('tv-count').textContent = '('+sites.length+')';
-  document.getElementById('tv-active-label').textContent = sel.join(', ');
   renderChips(sites, document.getElementById('tv-sites-cloud'));
-  panel.style.display = 'block';
+  document.getElementById('tv-sites-panel').style.display='block';
 }
 
 // ── SHARED ──
@@ -153,11 +148,12 @@ function renderChips(sites, el){
 var currentView = 'explore';
 
 function setView(v){
-  currentView = v;
+  currentView=v;
   ['explore','tags','table'].forEach(function(n){
-    document.getElementById('view-'+n).style.display = n===v ? 'block' : 'none';
-    document.getElementById('btn-'+n).classList.toggle('active', n===v);
+    document.getElementById('view-'+n).style.display=n===v?'block':'none';
+    document.getElementById('btn-'+n).classList.toggle('active',n===v);
   });
+  if(v==='tags') renderTvSites();
 }
 
 function clearCurrent(){
@@ -179,7 +175,7 @@ function clearCurrent(){
   }
 }
 
-setView(window.innerWidth <= 640 ? 'tags' : 'explore');
+setView('tags');
 
 // ── TABLE ──
 var activeCats={}, activeTag=null, sortCol=null, sortDir=1;
