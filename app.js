@@ -131,7 +131,7 @@ function renderTvSites(){
       seen[b.url]=true; sites.push(b);
     }
   });
-  renderChips(sites, document.getElementById('tv-sites-cloud'));
+  renderThumbs(sites, document.getElementById('ex-sites-cloud'));
   document.getElementById('tv-sites-panel').style.display='block';
 }
 
@@ -251,6 +251,29 @@ function render(){
 }
 
 function onTagClick(btn){ toggleTag(btn.getAttribute('data-tag')); }
+
+function renderThumbs(sites, el){
+  el.innerHTML = '';
+  el.style.cssText = 'display:grid;grid-template-columns:repeat(4,1fr);gap:8px;';
+  sites.forEach(function(b){
+    var card = document.createElement('a');
+    card.href = b.url; card.target='_blank'; card.rel='noopener';
+    card.style.cssText = 'text-decoration:none;color:#37352f;display:block;border:1px solid #e9e9e7;overflow:hidden;';
+    var img = document.createElement('img');
+    img.src = 'https://s0.wp.com/mshots/v1/'+encodeURIComponent(b.url)+'?w=300&h=200';
+    img.loading = 'lazy';
+    img.style.cssText = 'width:100%;height:120px;object-fit:cover;display:block;background:#f7f7f5;';
+    var label = document.createElement('div');
+    label.style.cssText = 'padding:5px 7px;font-size:10px;display:flex;align-items:center;gap:5px;border-top:1px solid #e9e9e7;';
+    var fav = document.createElement('img');
+    fav.src = 'https://www.google.com/s2/favicons?domain='+b.url+'&sz=32';
+    fav.width = 12; fav.height = 12;
+    label.appendChild(fav);
+    label.appendChild(document.createTextNode(b.label));
+    card.appendChild(img); card.appendChild(label);
+    el.appendChild(card);
+  });
+}
 
 // ── STUMBLE ──
 function stumble(){
