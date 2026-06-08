@@ -329,8 +329,6 @@ var DATA = [
     "label":"instagram.com/housesofberkeley", "tags":["Spaces"], "cats":["Time Pass"] },
   { "url":"https://internetphonebook.net/dial/", "title":"Internet Phone Book",
     "label":"internetphonebook.net", "tags":["Site of Sites"], "cats":["Time Pass"] },
-  { "url":"https://invoice.tolahq.com/?ref=onepagelove", "title":"Tola",
-    "label":"invoice.tolahq.com", "tags":["Contracts"], "cats":["Collaboration","Tools"] },
   { "url":"https://www.iosicongallery.com/", "title":"iOS Icon Gallery",
     "label":"iosicongallery.com", "tags":["Icons"], "cats":["Design"] },
   { "url":"https://jaali.indiansummerfest.ca/", "title":"JAALI",
