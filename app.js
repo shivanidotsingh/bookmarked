@@ -1,5 +1,6 @@
 // ── bookmarked app.js ──
-// Reads DATA, PAIRS, TAG_DOM, ALL_TAGS, ROW_HEIGHTS, ROWS_CFG from data.js
+// Reads DATA, TAG_DOM, ALL_TAGS, ROW_HEIGHTS, ROWS_CFG from data.js
+
 DATA.sort(function(){ return Math.random() - 0.5; });
 
 var CAT_CFG = {
@@ -11,99 +12,34 @@ var CAT_CFG = {
   'Time Pass':           {bg:'#D3E5EF',text:'#1E5F82',border:'#b8d5e5'}
 };
 
-// precompute tags per category
-var catTagCounts = {};
-Object.keys(CAT_CFG).forEach(function(c){ catTagCounts[c] = {}; });
-DATA.forEach(function(b){
-  b.cats.forEach(function(c){
-    b.tags.forEach(function(t){
-      if(catTagCounts[c]) catTagCounts[c][t] = (catTagCounts[c][t]||0)+1;
-    });
-  });
-});
-
 function catSlug(c){ return c.replace(/[ &]/g,''); }
 
-// ── EXPLORE — 2×3 grid ──
-var selectedCat = null, exActiveTag = null;
-
-ROWS_CFG.forEach(function(row, ri){
-  var rowEl = document.getElementById(ri===0 ? 'ex-row-top' : 'ex-row-bottom');
-  row.forEach(function(cat){
-    var cfg = CAT_CFG[cat];
-    var box = document.createElement('div');
-    box.className = 'cat-box';
-    box.id = 'box-' + catSlug(cat);
-    box.style.background = cfg.bg;
-    box.style.color      = cfg.text;
-    box.style.height     = ROW_HEIGHTS[cat] + 'px';
-    box.style.flex       = '1';
-
-    var info = document.createElement('div');
-    info.className = 'cat-box-info';
-    var n = 0;
-    DATA.forEach(function(b){ if(b.cats.indexOf(cat)>=0) n++; });
-    info.innerHTML = '<div class="cat-box-name">'+cat+'</div><div class="cat-box-count">'+n+' sites</div>';
-
-    var tc = document.createElement('div');
-    tc.className = 'cat-box-tags';
-    Object.keys(catTagCounts[cat]).sort().forEach(function(tag){
-      var btn = document.createElement('button');
-      btn.className = 'box-tag';
-      btn.textContent = tag;
-      btn.style.borderColor = cfg.border;
-      btn.style.color       = cfg.text;
-      btn.setAttribute('data-tag', tag);
-      btn.onclick = function(e){ e.stopPropagation(); selectExTag(tag); };
-      tc.appendChild(btn);
-    });
-
-    box.appendChild(tc);
-    box.appendChild(info);
-    box.onclick = function(){ selectCat(cat); };
-    rowEl.appendChild(box);
+// ── SHARED: render site chips into any container ──
+function renderChips(sites, el){
+  el.innerHTML = '';
+  sites.forEach(function(b){
+    var a = document.createElement('a');
+    a.className = 'site-chip';
+    a.href = b.url; a.target='_blank'; a.rel='noopener'; a.title=b.title;
+    var img = document.createElement('img');
+    img.src = 'https://www.google.com/s2/favicons?domain='+b.url+'&sz=32';
+    img.width = 14; img.height = 14;
+    img.style.cssText = 'vertical-align:middle;margin-right:6px;opacity:0.7;';
+    a.appendChild(img);
+    a.appendChild(document.createTextNode(b.label));
+    var cfg = CAT_CFG[b.cats[0]]; if(cfg) a.style.borderColor = cfg.border;
+    el.appendChild(a);
   });
-});
-
-function selectCat(cat){
-  if(selectedCat===cat){
-    selectedCat=null; exActiveTag=null;
-    document.querySelectorAll('.cat-box').forEach(function(b){ b.classList.remove('selected'); });
-    document.getElementById('ex-sites-panel').style.display='none';
-    return;
-  }
-  selectedCat=cat; exActiveTag=null;
-  document.querySelectorAll('.cat-box').forEach(function(b){ b.classList.remove('selected'); });
-  document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
-  document.getElementById('box-'+catSlug(cat)).classList.add('selected');
-  var sites = DATA.filter(function(b){ return b.cats.indexOf(cat)>=0; });
-  renderChips(sites, document.getElementById('tv-sites-cloud'));
-  document.getElementById('ex-active-tag').textContent = cat;
-  document.getElementById('ex-sites-panel').style.display='block';
-  document.getElementById('ex-sites-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function selectExTag(tag){
-  if(exActiveTag===tag){
-    exActiveTag=null;
-    document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
-    document.getElementById('ex-sites-panel').style.display='none';
-    return;
-  }
-  exActiveTag=tag;
-  document.querySelectorAll('.box-tag').forEach(function(b){
-    b.classList.toggle('active-box-tag', b.getAttribute('data-tag')===tag);
-  });
-  var sites = DATA.filter(function(b){ return b.tags.indexOf(tag)>=0; });
-  sites.sort(function(a,b){ return a.label<b.label?-1:1; });
-  renderChips(sites, document.getElementById('ex-sites-cloud'));
-  document.getElementById('ex-active-tag').textContent = tag;
-  document.getElementById('ex-sites-panel').style.display = 'block';
-  document.getElementById('ex-sites-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-// ── TAGS VIEW ──
+// ════════════════════════════════════════
+// EXPLORE VIEW (id="view-tags")
+// All sites shown by default.
+// Tags filter the list. Multiple tags = union (OR).
+// ════════════════════════════════════════
 var activeTvTags = {};
+
+// Build tag pills
 var tvCloud = document.getElementById('tv-cloud');
 ALL_TAGS.forEach(function(tag){
   var slug = catSlug(TAG_DOM[tag]||'Design');
@@ -120,72 +56,144 @@ function toggleTvTag(tag){
   document.querySelectorAll('.tv-tag').forEach(function(b){
     b.classList.toggle('active-tv-tag', !!activeTvTags[b.getAttribute('data-tag')]);
   });
-  renderTvSites();
+  renderExplore();
 }
 
-function renderTvSites(){
+function renderExplore(){
   var sel = Object.keys(activeTvTags);
-  var seen={}, sites=[];
-  DATA.forEach(function(b){
-    if(!seen[b.url] && (!sel.length || b.tags.some(function(t){ return activeTvTags[t]; }))){
-      seen[b.url]=true; sites.push(b);
-    }
-  });
-  renderChips(sites, document.getElementById('ex-sites-cloud'));
-  document.getElementById('tv-sites-panel').style.display='block';
-}
-
-// ── SHARED ──
-function renderChips(sites, el){
-  el.innerHTML = '';
-  sites.forEach(function(b){
-    var a = document.createElement('a');
-    a.className = 'site-chip';
-    a.href = b.url; a.target='_blank'; a.rel='noopener'; a.title=b.title;
-    var img = document.createElement('img');
-    img.src = 'https://www.google.com/s2/favicons?domain='+b.url+'&sz=32';
-    img.width = 14; img.height = 14;
-    img.style.cssText = 'vertical-align:middle;margin-right:6px;opacity:0.7;';
-    a.appendChild(img);
-    a.appendChild(document.createTextNode(b.label));
-    var cfg = CAT_CFG[b.cats[0]]; if(cfg) a.style.borderColor=cfg.border;
-    el.appendChild(a);
-  });
-}
-
-// ── VIEW TOGGLE + CLEAR ──
-var currentView = 'explore';
-
-function setView(v){
-  currentView=v;
-  ['explore','tags','table'].forEach(function(n){
-    document.getElementById('view-'+n).style.display=n===v?'block':'none';
-    document.getElementById('btn-'+n).classList.toggle('active',n===v);
-  });
-  if(v==='tags') renderTvSites();
-}
-
-function clearCurrent(){
-  if(currentView==='explore'){
-    selectedCat=null; exActiveTag=null;
-    document.querySelectorAll('.cat-box').forEach(function(b){ b.classList.remove('selected'); });
-    document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
-    document.getElementById('ex-sites-panel').style.display='none';
-  } else if(currentView==='tags'){
-    activeTvTags={};
-    document.querySelectorAll('.tv-tag').forEach(function(b){ b.classList.remove('active-tv-tag'); });
-    document.getElementById('tv-sites-panel').style.display='none';
+  var sites;
+  if(!sel.length){
+    sites = DATA.slice(); // all sites
   } else {
-    activeCats={}; activeTag=null;
-    document.getElementById('search').value='';
-    document.querySelectorAll('.cat-pill').forEach(function(el){ el.classList.remove('active'); });
-    render();
+    var seen = {};
+    sites = [];
+    DATA.forEach(function(b){
+      if(!seen[b.url] && b.tags.some(function(t){ return activeTvTags[t]; })){
+        seen[b.url] = true;
+        sites.push(b);
+      }
+    });
   }
+  renderChips(sites, document.getElementById('tv-sites-cloud'));
+  document.getElementById('tv-sites-panel').style.display = 'block';
 }
 
-setView('explore');
+function clearExplore(){
+  activeTvTags = {};
+  document.querySelectorAll('.tv-tag').forEach(function(b){ b.classList.remove('active-tv-tag'); });
+  renderExplore(); // show all sites again
+}
 
-// ── TABLE ──
+// ════════════════════════════════════════
+// CATEGORIES VIEW (id="view-explore")
+// Click category box → show its sites.
+// Click tag inside box → filter to that tag.
+// ════════════════════════════════════════
+var catTagCounts = {};
+Object.keys(CAT_CFG).forEach(function(c){ catTagCounts[c] = {}; });
+DATA.forEach(function(b){
+  b.cats.forEach(function(c){
+    b.tags.forEach(function(t){
+      if(catTagCounts[c]) catTagCounts[c][t] = (catTagCounts[c][t]||0)+1;
+    });
+  });
+});
+
+var selectedCat = null, activeExTag = null;
+
+ROWS_CFG.forEach(function(row, ri){
+  var rowEl = document.getElementById(ri===0 ? 'ex-row-top' : 'ex-row-bottom');
+  row.forEach(function(cat){
+    var cfg = CAT_CFG[cat];
+    var box = document.createElement('div');
+    box.className = 'cat-box';
+    box.id = 'box-' + catSlug(cat);
+    box.style.background = cfg.bg;
+    box.style.color      = cfg.text;
+    box.style.height     = ROW_HEIGHTS[cat] + 'px';
+    box.style.flex       = '1';
+
+    // tag cloud (hidden until selected)
+    var tc = document.createElement('div');
+    tc.className = 'cat-box-tags';
+    Object.keys(catTagCounts[cat]).sort().forEach(function(tag){
+      var btn = document.createElement('button');
+      btn.className = 'box-tag';
+      btn.textContent = tag;
+      btn.style.borderColor = cfg.border;
+      btn.style.color       = cfg.text;
+      btn.setAttribute('data-tag', tag);
+      btn.onclick = function(e){ e.stopPropagation(); selectCatTag(tag); };
+      tc.appendChild(btn);
+    });
+
+    // name + count
+    var info = document.createElement('div');
+    info.className = 'cat-box-info';
+    var n = 0;
+    DATA.forEach(function(b){ if(b.cats.indexOf(cat)>=0) n++; });
+    info.innerHTML = '<div class="cat-box-name">'+cat+'</div><div class="cat-box-count">'+n+' sites</div>';
+
+    box.appendChild(tc);
+    box.appendChild(info);
+    box.onclick = function(){ selectCat(cat); };
+    rowEl.appendChild(box);
+  });
+});
+
+function selectCat(cat){
+  // toggle off
+  if(selectedCat===cat){
+    selectedCat=null; activeExTag=null;
+    document.querySelectorAll('.cat-box').forEach(function(b){ b.classList.remove('selected'); });
+    document.getElementById('ex-sites-panel').style.display = 'none';
+    return;
+  }
+  selectedCat = cat; activeExTag = null;
+  document.querySelectorAll('.cat-box').forEach(function(b){ b.classList.remove('selected'); });
+  document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
+  document.getElementById('box-'+catSlug(cat)).classList.add('selected');
+  // show all sites in this category
+  var sites = DATA.filter(function(b){ return b.cats.indexOf(cat)>=0; });
+  renderChips(sites, document.getElementById('ex-sites-cloud'));
+  document.getElementById('ex-active-tag').textContent = cat;
+  document.getElementById('ex-sites-panel').style.display = 'block';
+  document.getElementById('ex-sites-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function selectCatTag(tag){
+  // toggle off
+  if(activeExTag===tag){
+    activeExTag = null;
+    document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
+    // revert to showing whole category
+    if(selectedCat){
+      var sites = DATA.filter(function(b){ return b.cats.indexOf(selectedCat)>=0; });
+      renderChips(sites, document.getElementById('ex-sites-cloud'));
+      document.getElementById('ex-active-tag').textContent = selectedCat;
+    }
+    return;
+  }
+  activeExTag = tag;
+  document.querySelectorAll('.box-tag').forEach(function(b){
+    b.classList.toggle('active-box-tag', b.getAttribute('data-tag')===tag);
+  });
+  var sites = DATA.filter(function(b){ return b.tags.indexOf(tag)>=0; });
+  renderChips(sites, document.getElementById('ex-sites-cloud'));
+  document.getElementById('ex-active-tag').textContent = tag;
+  document.getElementById('ex-sites-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function clearCategories(){
+  selectedCat=null; activeExTag=null;
+  document.querySelectorAll('.cat-box').forEach(function(b){ b.classList.remove('selected'); });
+  document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
+  document.getElementById('ex-sites-panel').style.display = 'none';
+}
+
+// ════════════════════════════════════════
+// TABLE VIEW (id="view-table")
+// ════════════════════════════════════════
 var activeCats={}, activeTag=null, sortCol=null, sortDir=1;
 
 function toggleCat(cat){
@@ -242,7 +250,10 @@ function render(){
       return '<button class="'+cls+'" data-tag="'+esc(t)+'" onclick="onTagClick(this)">'+esc(t)+'</button>';
     }).join('');
     rows += '<tr>'
-      +'<td class="td-domain"><a href="'+esc(b.url)+'" target="_blank" rel="noopener" title="'+esc(b.title)+'"><img src="https://www.google.com/s2/favicons?domain='+esc(b.url)+'&sz=32" width="14" height="14" style="vertical-align:middle;margin-right:6px;opacity:0.7;">'+esc(b.label)+'</a></td>'      +'<td><div class="row-cats">'+cats+'</div></td>'
+      +'<td class="td-domain"><a href="'+esc(b.url)+'" target="_blank" rel="noopener" title="'+esc(b.title)+'">'
+      +'<img src="https://www.google.com/s2/favicons?domain='+esc(b.url)+'&sz=32" width="14" height="14" style="vertical-align:middle;margin-right:6px;opacity:0.7;">'
+      +esc(b.label)+'</a></td>'
+      +'<td><div class="row-cats">'+cats+'</div></td>'
       +'<td><div class="row-tags">'+tags+'</div></td>'
       +'</tr>';
   });
@@ -251,16 +262,45 @@ function render(){
 
 function onTagClick(btn){ toggleTag(btn.getAttribute('data-tag')); }
 
+function clearTable(){
+  activeCats={}; activeTag=null;
+  document.getElementById('search').value='';
+  document.querySelectorAll('.cat-pill').forEach(function(el){ el.classList.remove('active'); });
+  render();
+}
+
+// ════════════════════════════════════════
+// VIEW TOGGLE + CLEAR
+// ════════════════════════════════════════
+var currentView = 'tags';
+
+function setView(v){
+  currentView = v;
+  ['explore','tags','table'].forEach(function(n){
+    document.getElementById('view-'+n).style.display = n===v ? 'block' : 'none';
+    document.getElementById('btn-'+n).classList.toggle('active', n===v);
+  });
+  if(v==='tags') renderExplore();
+}
+
+function clearCurrent(){
+  if(currentView==='tags')    clearExplore();
+  else if(currentView==='explore') clearCategories();
+  else                             clearTable();
+}
+
 // ── STUMBLE ──
 function stumble(){
   var pool;
-  if(currentView==='explore'){
-    if(exActiveTag) pool = DATA.filter(function(b){ return b.tags.indexOf(exActiveTag)>=0; });
+  if(currentView==='tags'){
+    var sel = Object.keys(activeTvTags);
+    pool = sel.length
+      ? DATA.filter(function(b){ return b.tags.some(function(t){ return activeTvTags[t]; }); })
+      : DATA;
+  } else if(currentView==='explore'){
+    if(activeExTag) pool = DATA.filter(function(b){ return b.tags.indexOf(activeExTag)>=0; });
     else if(selectedCat) pool = DATA.filter(function(b){ return b.cats.indexOf(selectedCat)>=0; });
     else pool = DATA;
-  } else if(currentView==='tags'){
-    var sel = Object.keys(activeTvTags);
-    pool = sel.length ? DATA.filter(function(b){ return b.tags.some(function(t){ return activeTvTags[t]; }); }) : DATA;
   } else {
     pool = getFiltered();
   }
@@ -279,4 +319,6 @@ function stumble(){
   });
 })();
 
+// initialise
+setView('tags');
 render();
