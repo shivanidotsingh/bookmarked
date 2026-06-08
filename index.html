@@ -9,14 +9,14 @@
 <body>
 
 <header class="site-header">
-  🐙 shivani's bookmarks from the world wide web, organised. <a href="mailto:shivani.singh@cca.edu">submit a site →</a>
+  shivani's bookmarks from the world wide web, organised. <a href="mailto:shivani.singh@cca.edu">submit a site →</a>
   <a href="#" onclick="stumble()">go to random site ↗</a>
 </header>
 
 <nav class="site-nav">
   <div class="nav-views">
-    <button class="nav-btn active" id="btn-explore" onclick="setView('explore')">explore</button>
-    <button class="nav-btn" id="btn-tags" onclick="setView('tags')">tags</button>
+    <button class="nav-btn active" id="btn-tags" onclick="setView('tags')">explore</button>
+    <button class="nav-btn" id="btn-explore" onclick="setView('explore')">categories</button>
     <button class="nav-btn" id="btn-table" onclick="setView('table')">table</button>
   </div>
   <button class="clear-btn" onclick="clearCurrent()">clear</button>
@@ -36,7 +36,6 @@
 <div id="view-tags" style="display:none">
   <div class="tags-cloud" id="tv-cloud"></div>
   <div class="sites-panel" id="tv-sites-panel" style="display:none">
-    <div class="sites-header">sites tagged <strong id="tv-active-label"></strong> <span class="tv-count" id="tv-count"></span></div>
     <div class="sites-cloud" id="tv-sites-cloud"></div>
   </div>
 </div>
