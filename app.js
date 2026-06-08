@@ -76,7 +76,11 @@ function selectCat(cat){
   document.querySelectorAll('.cat-box').forEach(function(b){ b.classList.remove('selected'); });
   document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
   document.getElementById('box-'+catSlug(cat)).classList.add('selected');
-  document.getElementById('ex-sites-panel').style.display='none';
+  var sites = DATA.filter(function(b){ return b.cats.indexOf(cat)>=0; });
+  renderChips(sites, document.getElementById('ex-sites-cloud'));
+  document.getElementById('ex-active-tag').textContent = cat;
+  document.getElementById('ex-sites-panel').style.display='block';
+  document.getElementById('ex-sites-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function selectExTag(tag){
@@ -180,7 +184,7 @@ function clearCurrent(){
   }
 }
 
-setView('tags');
+setView('explore');
 
 // ── TABLE ──
 var activeCats={}, activeTag=null, sortCol=null, sortDir=1;
