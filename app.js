@@ -77,7 +77,7 @@ function selectCat(cat){
   document.querySelectorAll('.box-tag').forEach(function(b){ b.classList.remove('active-box-tag'); });
   document.getElementById('box-'+catSlug(cat)).classList.add('selected');
   var sites = DATA.filter(function(b){ return b.cats.indexOf(cat)>=0; });
-  renderChips(sites, document.getElementById('ex-sites-cloud'));
+  renderChips(sites, document.getElementById('tv-sites-cloud'));
   document.getElementById('ex-active-tag').textContent = cat;
   document.getElementById('ex-sites-panel').style.display='block';
   document.getElementById('ex-sites-panel').scrollIntoView({behavior:'smooth',block:'nearest'});
