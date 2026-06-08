@@ -138,7 +138,12 @@ function renderChips(sites, el){
     var a = document.createElement('a');
     a.className = 'site-chip';
     a.href = b.url; a.target='_blank'; a.rel='noopener'; a.title=b.title;
-    a.textContent = b.label;
+    var img = document.createElement('img');
+    img.src = 'https://www.google.com/s2/favicons?domain='+b.url+'&sz=32';
+    img.width = 14; img.height = 14;
+    img.style.cssText = 'vertical-align:middle;margin-right:6px;opacity:0.7;';
+    a.appendChild(img);
+    a.appendChild(document.createTextNode(b.label));
     var cfg = CAT_CFG[b.cats[0]]; if(cfg) a.style.borderColor=cfg.border;
     el.appendChild(a);
   });
