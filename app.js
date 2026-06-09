@@ -51,7 +51,7 @@ CATS.forEach(function(cat, i){
 // Spreadsheet icon
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">📊</div><div class="lbl">bookmarked.xls</div>';
+sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">bookmarked.xls</div>';
 sheetIcon.style.left = (startX)+'px';
 sheetIcon.style.top  = (startY + CATS.length*stepY)+'px';
 makeDraggable(sheetIcon, openSheet);
