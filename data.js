@@ -402,7 +402,7 @@ var DATA = [
     "label":"midjourney.com", "cat":"Design Resources", "sub":"Image Generation" },
   { "url":"https://mindfuldesigntechnologist.xyz/", "title":"Mindful Design Technologist",
     "label":"mindfuldesigntechnologist.xyz", "cat":"Pass Time", "sub":"Books, Places to read" },
-  { "url":"https://minimator.app/#/home", "title":"Minimator",
+  { "url":"https://minimator.maxwellito.com/", "title":"Minimator",
     "label":"minimator.app", "cat":"Tools & Community", "sub":"Drawing, Scrawling" },
   { "url":"https://miro.com/", "title":"Miro",
     "label":"miro.com", "cat":"Learn & Collaborate", "sub":"Work from anywhere" },
