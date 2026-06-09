@@ -5,14 +5,43 @@ function slug(s){ return s.replace(/[^A-Za-z]/g,''); }
 function favicon(url){ return 'https://www.google.com/s2/favicons?domain='+url+'&sz=64'; }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-// ── CLOCK (menu bar) ──
+// Modern macOS-style blue folder (inline SVG, scalable, exact color)
+var FOLDER_SVG =
+  '<svg class="folder-svg" viewBox="0 0 48 40" width="48" height="40" xmlns="http://www.w3.org/2000/svg">'
+  + '<defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">'
+  + '<stop offset="0" stop-color="#7cc0f7"/><stop offset="1" stop-color="#3d92e8"/></linearGradient>'
+  + '<linearGradient id="fb" x1="0" y1="0" x2="0" y2="1">'
+  + '<stop offset="0" stop-color="#9ed1fb"/><stop offset="1" stop-color="#5aa8f0"/></linearGradient></defs>'
+  + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="url(#fb)"/>'
+  + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="url(#fg)"/>'
+  + '</svg>';
+
+// ── CLOCK + DAY/NIGHT BACKGROUND (menu bar) ──
+// Four gradients picked by the visitor's local hour. Updates live.
+function skyForHour(h){
+  if(h>=5 && h<8)   return {name:'dawn',  css:'linear-gradient(180deg,#f6d2a9 0%,#e8a0a0 40%,#9aa6d4 100%)'};
+  if(h>=8 && h<17)  return {name:'day',   css:'linear-gradient(180deg,#add8f7 0%,#7fb8ee 55%,#cfe6f7 100%)'};
+  if(h>=17 && h<20) return {name:'dusk',  css:'linear-gradient(180deg,#f3a06b 0%,#b56a8e 50%,#5a4a8a 100%)'};
+  return {name:'night', css:'linear-gradient(180deg,#1b2452 0%,#2a2c5e 50%,#3d3470 100%)'};
+}
+var lastSky='';
+function applySky(h){
+  var s=skyForHour(h);
+  if(s.name!==lastSky){
+    document.body.style.background=s.css;
+    document.body.style.backgroundAttachment='fixed';
+    document.body.setAttribute('data-sky',s.name);
+    lastSky=s.name;
+  }
+}
 function tick(){
   var d=new Date();
   var h=d.getHours(), m=d.getMinutes();
   var ap=h<12?'AM':'PM'; var h12=h%12; if(h12===0)h12=12;
   document.getElementById('clock').textContent = h12+':'+(m<10?'0':'')+m+' '+ap;
+  applySky(h);
 }
-tick(); setInterval(tick,10000);
+tick(); setInterval(tick,30000);
 
 // ── BUILD DESKTOP ICONS ──
 var desktop = document.getElementById('desktop');
@@ -29,7 +58,7 @@ function placeIcon(el, i){
 CATS.forEach(function(cat, i){
   var el = document.createElement('div');
   el.className = 'icon folder';
-  el.innerHTML = '<div class="glyph">📁</div><div class="lbl">'+esc(cat.name)+'</div>';
+  el.innerHTML = '<div class="glyph">'+FOLDER_SVG+'</div><div class="lbl">'+esc(cat.name)+'</div>';
   placeIcon(el, i);
   makeDraggable(el, function(){ openFolder(cat); });
   desktop.appendChild(el);
@@ -78,29 +107,61 @@ function makeDraggable(el, onOpen){
   el.addEventListener('touchend', function(e){ e.preventDefault(); onOpen(); });
 }
 
-// ── FOLDER WINDOW (icon view, grouped by subcategory) ──
+// ── FOLDER WINDOW (sidebar of subcategories + grouped icon view) ──
 var win = document.getElementById('window');
 function openFolder(cat){
   document.getElementById('sheet').style.display='none';
   document.getElementById('win-title').textContent = cat.emoji+'  '+cat.name;
   var sites = DATA.filter(function(d){ return d.cat===cat.name; });
   document.getElementById('win-count').textContent = sites.length+' items';
-  var body = document.getElementById('win-body');
-  var html='';
-  cat.subs.forEach(function(sub){
+
+  // subcategories that actually have sites, preserving CATS order
+  var subsWithSites = cat.subs.filter(function(sub){
+    return sites.some(function(d){ return d.sub===sub.name; });
+  });
+
+  // sidebar
+  var side = '<nav class="folder-sidebar">';
+  subsWithSites.forEach(function(sub, i){
+    var n = sites.filter(function(d){ return d.sub===sub.name; }).length;
+    side += '<a class="side-item" href="#sub-'+i+'" data-target="sub-'+i+'">'
+         +  '<span class="se">'+sub.emoji+'</span>'+esc(sub.name)
+         +  '<span class="side-count">'+n+'</span></a>';
+  });
+  side += '</nav>';
+
+  // content
+  var main = '<div class="folder-main" id="folder-main">';
+  subsWithSites.forEach(function(sub, i){
     var inSub = sites.filter(function(d){ return d.sub===sub.name; });
-    if(!inSub.length) return;
-    html += '<div class="subhead"><span class="se">'+sub.emoji+'</span>'+esc(sub.name)+' <span style="font-weight:normal;color:#999">('+inSub.length+')</span></div>';
-    html += '<div class="filegrid">';
+    main += '<div class="subhead" id="sub-'+i+'"><span class="se">'+sub.emoji+'</span>'+esc(sub.name)
+         +  ' <span style="font-weight:normal;color:#999">('+inSub.length+')</span></div>';
+    main += '<div class="filegrid">';
     inSub.forEach(function(d){
-      html += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.title)+'">'
+      main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.title)+'">'
            +  '<img src="'+favicon(d.url)+'" alt="">'
            +  '<span class="fname">'+esc(d.label)+'</span></a>';
     });
-    html += '</div>';
+    main += '</div>';
   });
-  body.innerHTML = html;
+  main += '</div>';
+
+  var body = document.getElementById('win-body');
+  body.innerHTML = '<div class="folder-split">'+side+main+'</div>';
   body.scrollTop = 0;
+
+  // sidebar clicks scroll the main column to the section (all stay visible)
+  var mainEl = body.querySelector('#folder-main');
+  body.querySelectorAll('.side-item').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var t = body.querySelector('#'+a.getAttribute('data-target'));
+      if(t) mainEl.scrollTo({ top: t.offsetTop - mainEl.offsetTop - 4, behavior:'smooth' });
+      body.querySelectorAll('.side-item').forEach(function(s){ s.classList.remove('active'); });
+      a.classList.add('active');
+    });
+  });
+
   win.style.display='flex';
 }
 function closeWindow(){ win.style.display='none'; }
