@@ -546,8 +546,6 @@ var DATA = [
     "label":"shailendra.me", "cat":"Design References", "sub":"eyecandy" },
   { "url":"https://www.shapedivider.app/", "title":"Custom Shape Dividers",
     "label":"shapedivider.app", "cat":"Tools & Community", "sub":"Blobs, Waves, Flakes, Slopes" },
-  { "url":"https://www.shareviralpositivity.com/", "title":"Viral Positivity",
-    "label":"shareviralpositivity.com", "cat":"Pass Time", "sub":"Cats, Poetry and Joy" },
   { "url":"https://shelby.cool/field-of-flowers/", "title":"field of flowers",
     "label":"shelby.cool/field-of-flowers", "cat":"Pass Time", "sub":"Birds, Flowers" },
   { "url":"https://shelby.cool/a-room-with-a-window/", "title":"A Room with a Window",
