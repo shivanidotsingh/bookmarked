@@ -8,70 +8,55 @@
 </head>
 <body>
 
-<header class="site-header">
-  shivani's bookmarks from the world wide web. 
-    <button class="stumble-btn" onclick="stumble()">go to random site</button>
-</header>
-  
-<nav class="site-nav">
-  <div class="nav-views">
-    <button class="nav-btn" id="btn-explore" onclick="setView('explore')">categories</button>
-    <button class="nav-btn active" id="btn-tags" onclick="setView('tags')">tags</button>
-    <button class="nav-btn" id="btn-table" onclick="setView('table')">table</button>
-  </div>
-  <button class="clear-btn" onclick="clearCurrent()">clear</button>
-</nav>
-
-<!-- EXPLORE -->
-<div id="view-explore">
-  <div class="ex-row ex-row-top" id="ex-row-top"></div>
-  <div class="ex-row ex-row-bottom" id="ex-row-bottom"></div>
-  <div class="sites-panel" id="ex-sites-panel" style="display:none">
-    <div class="sites-header">sites tagged <strong id="ex-active-tag"></strong></div>
-    <div class="sites-cloud" id="ex-sites-cloud"></div>
-  </div>
+<!-- MENU BAR -->
+<div id="menubar">
+  <span class="mb-apple">🐙</span>
+  <span class="mb-title">bookmarked</span>
+  <span class="mb-item">File</span>
+  <span class="mb-item">Edit</span>
+  <span class="mb-item">View</span>
+  <span class="mb-spacer"></span>
+  <span class="mb-clock" id="clock"></span>
 </div>
 
-<!-- TAGS -->
-<div id="view-tags" style="display:none">
-  <div class="tags-cloud" id="tv-cloud"></div>
-  <div class="sites-panel" id="tv-sites-panel" style="display:none">
-    <div class="sites-cloud" id="tv-sites-cloud"></div>
-  </div>
+<!-- DESKTOP -->
+<div id="desktop">
+  <p id="hint">shivani's bookmarks from the world wide web — double-click a folder</p>
+  <!-- icons injected by app.js -->
 </div>
 
-<!-- TABLE -->
-<div id="view-table" style="display:none">
-  <div class="cat-row">
-    <span class="cat-label">category</span>
-    <button class="cat-pill cp-Design"            data-cat="Design"              onclick="toggleCat('Design')">Design</button>
-    <button class="cat-pill cp-Tools"             data-cat="Tools"               onclick="toggleCat('Tools')">Tools</button>
-    <button class="cat-pill cp-EyeCandy"          data-cat="Eye Candy"           onclick="toggleCat('Eye Candy')">Eye Candy</button>
-    <button class="cat-pill cp-LearningCommunity" data-cat="Learning & Community" onclick="toggleCat('Learning & Community')">Learning &amp; Community</button>
-    <button class="cat-pill cp-Collaboration"     data-cat="Collaboration"       onclick="toggleCat('Collaboration')">Collaboration</button>
-    <button class="cat-pill cp-TimePass"          data-cat="Time Pass"           onclick="toggleCat('Time Pass')">Time Pass</button>
+<!-- FOLDER WINDOW (icon view) -->
+<div id="window" class="window" style="display:none">
+  <div class="title-bar" id="title-bar">
+    <button class="close-box" onclick="closeWindow()" title="close"></button>
+    <span class="title-text" id="win-title">Folder</span>
+    <span class="title-count" id="win-count"></span>
   </div>
-  <div class="search-row">
-    <input type="text" id="search" placeholder="search&hellip;" oninput="render()">
-    <span class="count" id="count"></span>
-  </div>
-  <table>
-    <thead><tr>
-      <th onclick="sortBy('label')">Domain <span id="arr">&uarr;</span></th>
-      <th>Category</th>
-      <th>Tags</th>
-    </tr></thead>
-    <tbody id="tbody"></tbody>
-  </table>
+  <div class="window-body" id="win-body"></div>
 </div>
 
-<footer>
-  <div class="bm-wrap">
-    <a class="bm-btn" id="bm-link" href="#"> 🐙 </a>
-    <span class="bm-hint">&mdash; drag this octopus to your bookmarks bar and click to stumble upon a site from this directory anytime.</span>
+<!-- SPREADSHEET WINDOW (table) -->
+<div id="sheet" class="window" style="display:none">
+  <div class="title-bar">
+    <button class="close-box" onclick="closeSheet()" title="close"></button>
+    <span class="title-text">bookmarked.xls</span>
+    <span class="title-count" id="sheet-count"></span>
   </div>
-  <a href="mailto:shivani.singh@cca.edu" style="float:right;margin-top:-1.5em;">submit a site →</a>
-</footer>
+  <div class="window-body sheet-body">
+    <div class="sheet-toolbar">
+      <input type="text" id="search" placeholder="search&hellip;" oninput="renderSheet()">
+      <span class="sheet-filters" id="sheet-filters"></span>
+    </div>
+    <table>
+      <thead><tr>
+        <th onclick="sortSheet('label')">Site <span id="arr">▲</span></th>
+        <th>Category</th>
+        <th>Subcategory</th>
+      </tr></thead>
+      <tbody id="sheet-tbody"></tbody>
+    </table>
+  </div>
+</div>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
