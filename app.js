@@ -17,28 +17,13 @@ var FOLDER_SVG =
   + '</svg>';
 
 // ── CLOCK (menu bar) ──
-function skyForHour(h){
-  if(h>=5 && h<8)   return {name:'dawn',  css:'linear-gradient(180deg,#f6d2a9 0%,#e8a0a0 40%,#9aa6d4 100%)'};
-  if(h>=8 && h<17)  return {name:'day',   css:'linear-gradient(180deg, #ffe6d4 0%, #ffcbb3 35%, #ffb4a6 65%, #ff98b3 100%)'};
-  if(h>=17 && h<20) return {name:'dusk',  css:'linear-gradient(180deg,#f3a06b 0%,#b56a8e 50%,#5a4a8a 100%)'};
-  return {name:'night', css:'linear-gradient(180deg,#1b2452 0%,#2a2c5e 50%,#3d3470 100%)'};
-}
-var lastSky='';
-function applySky(h){
-  var s=skyForHour(h);
-  if(s.name!==lastSky){
-    document.body.style.background=s.css;
-    document.body.style.backgroundAttachment='fixed';
-    document.body.setAttribute('data-sky',s.name);
-    lastSky=s.name;
-  }
-}
+
 function tick(){
   var d=new Date();
   var h=d.getHours(), m=d.getMinutes();
   var ap=h<12?'AM':'PM'; var h12=h%12; if(h12===0)h12=12;
   document.getElementById('clock').textContent = h12+':'+(m<10?'0':'')+m+' '+ap;
-  applySky(h);
+  //applySky(h);
 }
 tick(); setInterval(tick,30000);
 
