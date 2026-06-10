@@ -496,6 +496,8 @@ var DATA = [
     "label":"playphrase.me", "cat":"Pass Time", "sub":"Film things" },
   { "url":"https://podcastmagic.app/", "title":"Podcast Magic",
     "label":"podcastmagic.app", "cat":"Tools & Community", "sub":"misc. AI" },
+  { "url":"https://lightpage.com/", "title":"Notebook that talks back",
+    "label":"lightpage.com", "cat":"Tools & Community", "sub":"Notes, browsers" },
   { "url":"https://www.precyclenyc.com/", "title":"Precycle",
     "label":"precyclenyc.com", "cat":"Learn & Collaborate", "sub":"Zero Waste Resources" },
   { "url":"https://principles.design/", "title":"Design Principles",
