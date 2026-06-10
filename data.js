@@ -62,7 +62,7 @@ var DATA = [
     "label":"bearblog.dev", "cat":"Tools & Community", "sub":"Publish a website, blog" },
   { "url":"https://cntrl.site/", "title":"Design Outstanding Websites.",
     "label":"cntrl.site", "cat":"Tools & Community", "sub":"Publish a website, blog" },
-  { "url":"https://benediktlehnert.github.io/", "title":"OMG I'm working remotely",
+  { "url":"https://benediktlehnert.github.io/omgwfh/", "title":"OMG I'm working remotely",
     "label":"benediktlehnert.github.io", "cat":"Learn & Collaborate", "sub":"Work from anywhere" },
   { "url":"https://berlintransitmap.de/", "title":"New Berlin rapid transit route map",
     "label":"berlintransitmap.de", "cat":"Design References", "sub":"Maps" },
