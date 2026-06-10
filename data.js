@@ -238,7 +238,7 @@ var DATA = [
     "label":"fontsinuse.com", "cat":"Design Resources", "sub":"Typography" },
   { "url":"https://foresight.unglobalpulse.net/how-tools/", "title":"UNGP Foresight Tools",
     "label":"foresight.unglobalpulse.net", "cat":"Tools & Community", "sub":"Toolkits + Method Cards" },
-  { "url":"https://www.format.com/website-templates", "title":"Format",
+  { "url":"https://www.format.com", "title":"Format",
     "label":"format.com", "cat":"Tools & Community", "sub":"Publish a website, blog" },
   { "url":"https://foundcolor.co/archive", "title":"Found Color Archive",
     "label":"foundcolor.co", "cat":"Design Resources", "sub":"Colors" },
