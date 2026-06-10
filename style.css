@@ -55,13 +55,6 @@ body{
 .icon.selected .lbl{background:#000;color:#fff;text-shadow:none;}
 .icon.dragging{opacity:0.6;}
 
-/* octopus bookmarklet */
-.octo-link{
-  font-size:34px;text-decoration:none;cursor:grab;
-  width:52px;height:46px;display:flex;align-items:center;justify-content:center;
-}
-.octo-link:active{cursor:grabbing;}
-
 /* WINDOWS (dynamic, multiple) */
 .window{
   position:fixed;background:var(--chrome);
@@ -119,10 +112,7 @@ body{
 .file .fname{font-size:10px;text-align:center;line-height:1.2;word-break:break-word;}
 .file:hover .fname{background:#000;color:#fff;}
 
-/* README window */
-.readme-body{background:#fff;overflow:auto;}
-.readme{padding:14px 16px;line-height:1.5;font-size:12px;}
-.readme p{margin-bottom:9px;}
+
 
 /* SPREADSHEET */
 .sheet-body{background:#fff;overflow:auto;}
