@@ -85,23 +85,6 @@ shuf.style.left='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
 
-// Octopus bookmarklet icon (top-left, below shuffle)
-// The <a> is a real javascript: bookmarklet so it can be dragged to the bookmarks bar.
-var bm = document.createElement('div');
-bm.className='icon octo-icon';
-var bmCode = "javascript:(function(){window.open('https://singh.work/bookmarked/','_blank');})();";
-bm.innerHTML =
-  '<a class="octo-link glyph" draggable="true" href="'+bmCode+'" title="drag me to your bookmarks bar">🐙</a>'
-  + '<div class="lbl">drag to bookmarks bar</div>';
-bm.style.left='28px'; bm.style.top='150px';
-desktop.appendChild(bm);
-// double-click opens the Read Me; dragging the link installs the bookmarklet
-bm.querySelector('.octo-link').addEventListener('click', function(e){ e.preventDefault(); });
-bm.querySelector('.octo-link').addEventListener('dragstart', function(e){
-  e.dataTransfer.setData('text/uri-list', bmCode);
-  e.dataTransfer.setData('text/plain', bmCode);
-});
-
 // ── ICON DRAG + DOUBLE-CLICK ──
 function makeIconDraggable(el, onOpen){
   var sx,sy,ox,oy,moved=false,down=false;
