@@ -27,7 +27,6 @@ body{
 }
 .mb-apple{font-size:13px;}
 .mb-title{font-weight:bold;}
-.mb-item{font-weight:normal;}
 .mb-spacer{flex:1;}
 .mb-clock{font-variant-numeric:tabular-nums;}
 
@@ -55,16 +54,6 @@ body{
 }
 .icon.selected .lbl{background:#000;color:#fff;text-shadow:none;}
 .icon.dragging{opacity:0.6;}
-
-/* rainbow shuffle + promoted Colors glyph */
-.shuffle-glyph{
-  font-size:30px;width:52px;height:46px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(105deg,#ff5f6d,#ffc371,#47e891,#5b9df9,#c77dff);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:hue 3s 1 forwards;
-}
-@keyframes hue{from{filter:hue-rotate(0deg);}to{filter:hue-rotate(160deg);}}
-.gear-glyph{font-size:32px;width:52px;height:46px;display:flex;align-items:center;justify-content:center;}
 
 /* octopus bookmarklet */
 .octo-link{
