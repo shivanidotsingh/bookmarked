@@ -20,6 +20,8 @@ var DATA = [
     "label":"airconsole.com", "cat":"Tools & Community", "sub":"Make a game" },
   { "url":"https://albumcolors.com/", "title":"Album Colors Of The Year",
     "label":"albumcolors.com", "cat":"Design Resources", "sub":"Colors" },
+  { "url":"https://javier.xyz/cohesive-colors", "title":"Cohesive Colors",
+    "label":"cohesive-colors", "cat":"Design Resources", "sub":"Colors" },
   { "url":"https://allifontforchristmas.com/", "title":"All I Font for Christmas",
     "label":"allifontforchristmas.com", "cat":"Design Resources", "sub":"Typography" },
   { "url":"https://alpha.womp.com/", "title":"Womp 3D for all",
