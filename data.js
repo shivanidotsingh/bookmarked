@@ -561,7 +561,7 @@ var DATA = [
   { "url":"https://www.signs.com/branded-in-memory/#starbucks", "title":"Branded in Memory",
     "label":"signs.com", "cat":"Tools & Community", "sub":"Drawing, Scrawling" },
   { "url":"https://sinceyouarrived.world/taken", "title":"Since You Arrived",
-    "label":"sinceyouarrived.world", "cat":"Tools & Community", "sub":"misc. AI" },
+    "label":"sinceyouarrived.world", "cat":"Tools & Community", "sub":"Cookies" },
   { "url":"https://www.siteofsites.co/", "title":"Site of Sites",
     "label":"siteofsites.co", "cat":"Pass Time", "sub":"Site of Sites" },
   { "url":"https://sites.elliott.computer/one-minute-park/", "title":"One Minute Park",
