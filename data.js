@@ -340,8 +340,6 @@ var DATA = [
     "label":"jaali.indiansummerfest.ca", "cat":"Design References", "sub":"Data Visualized" },
   { "url":"https://javier.xyz/emoji-to-scale/", "title":"Emoji to Scale",
     "label":"javier.xyz", "cat":"Design Resources", "sub":"Scales and Grids" },
-  { "url":"http://jessicahische.is/helpingyouanswer", "title":"Jessica Hische on Rates",
-    "label":"jessicahische.is", "cat":"Learn & Collaborate", "sub":"Contracts, Emails" },
   { "url":"https://jonsuh.com/hamburgers/", "title":"Hamburgers",
     "label":"jonsuh.com", "cat":"Tools & Community", "sub":"Cascading Style Sheets" },
   { "url":"https://jxnblk.github.io/hello-color/?c=e78664", "title":"Hello Color",
