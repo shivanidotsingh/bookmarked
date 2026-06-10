@@ -18,8 +18,8 @@ var FOLDER_SVG =
 
 // Subcategories promoted to their own desktop icons (removed from parent folders)
 var PROMOTED = [
-  { sub:"Colors",                 parent:"Design Resources", icon:'<div class="shuffle-glyph promoted-glyph">\u2756</div>' },
-  { sub:"Toolkits + Method Cards", parent:"Tools & Community", icon:'<div class="gear-glyph promoted-glyph">\u2699\ufe0f</div>' }
+  { sub:"Colors",                  parent:"Design Resources", icon:"🌈" },
+  { sub:"Toolkits + Method Cards", parent:"Tools & Community", icon:"⚙️" }
 ];
 function isPromoted(catName, subName){
   return PROMOTED.some(function(p){ return p.parent===catName && p.sub===subName; });
@@ -72,7 +72,7 @@ PROMOTED.forEach(function(p){
 // Spreadsheet icon
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">\ud83d\udcca</div><div class="lbl">bookmarked.xls</div>';
+sheetIcon.innerHTML='<div class="glyph">🔍︎</div><div class="lbl">bookmarked.xls</div>';
 sheetIcon.style.left = startX+'px';
 sheetIcon.style.top  = nextRightSlot()+'px';
 makeIconDraggable(sheetIcon, openSheet);
@@ -81,7 +81,7 @@ desktop.appendChild(sheetIcon);
 // Rainbow shuffle icon (top-left)
 var shuf = document.createElement('div');
 shuf.className='icon';
-shuf.innerHTML='<div class="shuffle-glyph">\u273a</div><div class="lbl">random site</div>';
+shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">random site</div>';
 shuf.style.left='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
@@ -92,7 +92,7 @@ var bm = document.createElement('div');
 bm.className='icon octo-icon';
 var bmCode = "javascript:(function(){window.open('https://singh.work/bookmarked/','_blank');})();";
 bm.innerHTML =
-  '<a class="octo-link glyph" draggable="true" href="'+bmCode+'" title="drag me to your bookmarks bar">\ud83d\udc19</a>'
+  '<a class="octo-link glyph" draggable="true" href="'+bmCode+'" title="drag me to your bookmarks bar">🐙</a>'
   + '<div class="lbl">drag to bookmarks bar</div>';
 bm.style.left='28px'; bm.style.top='150px';
 desktop.appendChild(bm);
@@ -267,7 +267,7 @@ function openSubcategory(subName, parentName){
 function openReadMe(){
   var html =
     '<div class="readme">'
-    + '<p><b>\ud83d\udc19 the bookmarked octopus</b></p>'
+    + '<p><b>🐙 the bookmarked octopus</b></p>'
     + '<p>This little guy is a bookmarklet \u2014 a bookmark that runs a tiny bit of code.</p>'
     + '<p><b>To install:</b></p>'
     + '<p>1. Make sure your browser\u2019s bookmarks bar is visible.<br>'
@@ -277,10 +277,18 @@ function openReadMe(){
     + '<p style="color:#888">(Double-clicking the octopus on the desktop opens this note. '
     + 'Dragging it installs the bookmarklet.)</p>'
     + '</div>';
-  makeWindow('readme', '\ud83d\udcc4  Read Me', html, {width:380, height:300, bodyClass:'readme-body'});
+  makeWindow('readme', '📄  Read Me', html, {width:380, height:300, bodyClass:'readme-body'});
 }
 
 // ── SPREADSHEET WINDOW (table) ──
+// Default order: shuffled once per visit (Fisher–Yates). Column sort still works on click.
+var SHEET_ORDER = DATA.slice();
+(function(){
+  for(var i=SHEET_ORDER.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=SHEET_ORDER[i]; SHEET_ORDER[i]=SHEET_ORDER[j]; SHEET_ORDER[j]=t;
+  }
+})();
 var activeCats={}, sortCol=null, sortDir=1;
 function sheetBodyHTML(){
   return ''
@@ -289,7 +297,7 @@ function sheetBodyHTML(){
     +   '<span class="sheet-filters" id="sheet-filters"></span>'
     + '</div>'
     + '<table><thead><tr>'
-    +   '<th onclick="sortSheet(\'label\')">Site <span id="arr">\u25b2</span></th>'
+    +   '<th onclick="sortSheet(\'label\')">Site <span id="arr">▲</span></th>'
     +   '<th>Category</th><th>Subcategory</th>'
     + '</tr></thead><tbody id="sheet-tbody"></tbody></table>';
 }
@@ -318,14 +326,14 @@ function toggleCat(c){
 function sortSheet(col){
   sortDir = sortCol===col ? -sortDir : 1;
   sortCol = col;
-  var arr=document.getElementById('arr'); if(arr) arr.textContent = sortDir===1?'\u25b2':'\u25bc';
+  var arr=document.getElementById('arr'); if(arr) arr.textContent = sortDir===1?'▲':'▼';
   renderSheet();
 }
 function sheetFiltered(){
   var si=document.getElementById('search');
   var q=si?si.value.toLowerCase():'';
   var cats=Object.keys(activeCats);
-  return DATA.filter(function(d){
+  return SHEET_ORDER.filter(function(d){
     if(cats.length && !activeCats[d.cat]) return false;
     if(q){
       var h=(d.title+' '+d.label+' '+d.sub+' '+d.cat).toLowerCase();
