@@ -1,12 +1,8 @@
 /* ── bookmarked — System 7 / classic Mac desktop ── */
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#9c9c9c;            /* classic desktop grey */
   --ink:#000;
-  --chrome:#dcdcdc;        /* window chrome */
-  --line:#000;
-  --shadow:#555;
-  --hi:#000;
+  --chrome:#dcdcdc;
   --sel:#c8d8f0;
 }
 html,body{height:100%;}
@@ -14,6 +10,8 @@ body{
   font-family:"Geneva","Verdana",-apple-system,sans-serif;
   font-size:12px;color:var(--ink);
   background-image: url("https://lh3.googleusercontent.com/d/1zCVe5vKxt-zzA7gfY2nRYWgU3KpM-56l");
+  background-size:cover;
+  background-position:center;
   background-attachment:fixed;
   overflow:hidden;
   user-select:none;
@@ -42,7 +40,7 @@ body{
 
 /* DESKTOP ICONS */
 .icon{
-  position:absolute;width:84px;text-align:center;cursor:default;
+  position:absolute;width:96px;text-align:center;cursor:default;
   display:flex;flex-direction:column;align-items:center;gap:3px;
   padding:4px;
 }
@@ -53,31 +51,39 @@ body{
 .folder-svg{width:48px;height:40px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.3));}
 .icon .lbl{
   font-size:11px;color:#fff;text-shadow:1px 1px 0 #000;
-  padding:0 3px;max-width:84px;line-height:1.25;
+  padding:0 3px;max-width:96px;line-height:1.25;
 }
 .icon.selected .lbl{background:#000;color:#fff;text-shadow:none;}
 .icon.dragging{opacity:0.6;}
-.icon .shuffle-glyph{
+
+/* rainbow shuffle + promoted Colors glyph */
+.shuffle-glyph{
   font-size:30px;width:52px;height:46px;display:flex;align-items:center;justify-content:center;
   background:linear-gradient(105deg,#ff5f6d,#ffc371,#47e891,#5b9df9,#c77dff);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:hue 3s 1 forwards;
 }
 @keyframes hue{from{filter:hue-rotate(0deg);}to{filter:hue-rotate(160deg);}}
+.gear-glyph{font-size:32px;width:52px;height:46px;display:flex;align-items:center;justify-content:center;}
 
-/* WINDOWS */
+/* octopus bookmarklet */
+.octo-link{
+  font-size:34px;text-decoration:none;cursor:grab;
+  width:52px;height:46px;display:flex;align-items:center;justify-content:center;
+}
+.octo-link:active{cursor:grabbing;}
+
+/* WINDOWS (dynamic, multiple) */
 .window{
   position:fixed;background:var(--chrome);
   border:1px solid #000;
-  z-index:50;display:flex;flex-direction:column;
+  display:flex;flex-direction:column;
+  min-width:240px;min-height:160px;
 }
-#window{top:64px;left:80px;width:560px;height:440px;}
-#sheet{top:54px;left:120px;width:680px;height:480px;z-index:60;}
-
 .title-bar{
   height:20px;border-bottom:1px solid #000;
   display:flex;align-items:center;gap:8px;padding:0 7px;
-  background:#cfcfcf;
+  background:repeating-linear-gradient(#fff,#fff 1px,#cfcfcf 1px,#cfcfcf 2px);
   cursor:move;
 }
 .close-box{
@@ -85,8 +91,8 @@ body{
   padding:0;cursor:pointer;flex:none;
 }
 .close-box:hover{background:#888;}
-.title-text{font-weight:bold;background:var(--chrome);padding:0 6px;}
-.title-count{margin-left:auto;color:#444;background:var(--chrome);padding:0 4px;}
+.title-text{font-weight:bold;background:var(--chrome);padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.title-count{margin-left:auto;color:#444;background:var(--chrome);padding:0 4px;white-space:nowrap;}
 
 /* FOLDER WINDOW: sidebar + main split */
 .window-body{flex:1;overflow:hidden;background:#fff;border-top:1px solid #888;}
@@ -124,11 +130,16 @@ body{
 .file .fname{font-size:10px;text-align:center;line-height:1.2;word-break:break-word;}
 .file:hover .fname{background:#000;color:#fff;}
 
+/* README window */
+.readme-body{background:#fff;overflow:auto;}
+.readme{padding:14px 16px;line-height:1.5;font-size:12px;}
+.readme p{margin-bottom:9px;}
+
 /* SPREADSHEET */
 .sheet-body{background:#fff;overflow:auto;}
 .sheet-toolbar{
   position:sticky;top:0;background:#ececec;border-bottom:1px solid #000;
-  display:flex;gap:10px;align-items:center;padding:6px 8px;flex-wrap:wrap;
+  display:flex;gap:10px;align-items:center;padding:6px 8px;flex-wrap:wrap;z-index:2;
 }
 #search{font-family:inherit;font-size:12px;padding:3px 6px;border:1px solid #000;width:200px;background:#fff;}
 .sheet-filters{display:flex;gap:4px;flex-wrap:wrap;}
@@ -146,17 +157,14 @@ td.c-site a{color:#000;text-decoration:none;display:flex;align-items:center;gap:
 td.c-site a:hover{text-decoration:underline;}
 td.c-site img{width:14px;height:14px;opacity:0.8;}
 .tag-cat{font-size:10px;}
-
-/* color chips per category in the sheet */
 .cc-DesignResources{color:#9E3C3C;}
 .cc-DesignReferences{color:#B5651D;}
 .cc-ToolsCommunity{color:#9A6D1F;}
 .cc-LearnCollaborate{color:#2F6A3F;}
 .cc-PassTime{color:#1E5F82;}
-
 .empty{padding:30px;text-align:center;color:#888;}
 
 @media(max-width:640px){
-  #window,#sheet{left:8px;right:8px;width:auto;top:40px;height:calc(100% - 56px);}
+  .window{left:8px!important;right:8px;width:auto!important;top:40px!important;height:calc(100% - 56px)!important;}
   #hint{font-size:10px;white-space:normal;width:80%;text-align:center;}
 }
