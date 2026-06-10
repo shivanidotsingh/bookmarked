@@ -11,54 +11,16 @@
 <!-- MENU BAR -->
 <div id="menubar">
   <span class="mb-apple">🐙</span>
-  <span class="mb-title">bookmarked</span>
-  <span class="mb-item">File</span>
-  <span class="mb-item">Edit</span>
-  <span class="mb-item">View</span>
+  <span class="mb-title">shivani's bookmarks</span>
   <span class="mb-spacer"></span>
   <span class="mb-clock" id="clock"></span>
 </div>
 
-<!-- DESKTOP -->
-<div id="desktop">
-  <p id="hint">shivani's bookmarks from the world wide web</p>
-  <!-- icons injected by app.js -->
-</div>
-
-<!-- FOLDER WINDOW (icon view) -->
-<div id="window" class="window" style="display:none">
-  <div class="title-bar" id="title-bar">
-    <button class="close-box" onclick="closeWindow()" title="close"></button>
-    <span class="title-text" id="win-title">Folder</span>
-    <span class="title-count" id="win-count"></span>
-  </div>
-  <div class="window-body" id="win-body"></div>
-</div>
-
-<!-- SPREADSHEET WINDOW (table) -->
-<div id="sheet" class="window" style="display:none">
-  <div class="title-bar">
-    <button class="close-box" onclick="closeSheet()" title="close"></button>
-    <span class="title-text">bookmarked.xls</span>
-    <span class="title-count" id="sheet-count"></span>
-  </div>
-  <div class="window-body sheet-body">
-    <div class="sheet-toolbar">
-      <input type="text" id="search" placeholder="search&hellip;" oninput="renderSheet()">
-      <span class="sheet-filters" id="sheet-filters"></span>
-    </div>
-    <table>
-      <thead><tr>
-        <th onclick="sortSheet('label')">Site <span id="arr">▲</span></th>
-        <th>Category</th>
-        <th>Subcategory</th>
-      </tr></thead>
-      <tbody id="sheet-tbody"></tbody>
-    </table>
-  </div>
-</div>
+<!-- DESKTOP (icons + windows injected by app.js) -->
+<div id="desktop"></div>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script>window.addEventListener('load', function(){ openSheet(); });</script>
 </body>
 </html>
