@@ -783,6 +783,7 @@ var CATS = [
       { "name":"Drawing, Scrawling", "emoji":"\u3030\ufe0f" },
       { "name":"Decks, Cards, Pages", "emoji":"\ud83d\udfe1" },
       { "name":"Notes, browsers", "emoji":"\u270d\ufe0f" },
+      { "name":"Cookies", "emoji":"U+1F36A" },
       { "name":"misc. AI", "emoji":"\ud83c\udf4c" }
   ] },
   { "name":"Learn & Collaborate", "emoji":"\ud83e\udd1d", "subs":[
