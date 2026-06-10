@@ -70,8 +70,6 @@ var DATA = [
     "label":"berlintransitmap.de", "cat":"Design References", "sub":"Maps" },
   { "url":"https://www.bigtimer.net/?minutes=10&repeat=false", "title":"Big Timer",
     "label":"bigtimer.net", "cat":"Learn & Collaborate", "sub":"Timers" },
-  { "url":"https://black-img.com/Cut-outs", "title":"Cut-outs - blackimg",
-    "label":"black-img.com", "cat":"Design Resources", "sub":"Personas and Journey Maps" },
   { "url":"https://haikei.app/generators/", "title":"Haikei",
     "label":"haikei.app", "cat":"Tools & Community", "sub":"Generators" },
   { "url":"https://www.blobmaker.app/", "title":"Blobmaker",
