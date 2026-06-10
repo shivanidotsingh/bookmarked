@@ -31,7 +31,6 @@ function tick(){
   var h=d.getHours(), m=d.getMinutes();
   var ap=h<12?'AM':'PM'; var h12=h%12; if(h12===0)h12=12;
   document.getElementById('clock').textContent = h12+':'+(m<10?'0':'')+m+' '+ap;
-  //applySky(h);
 }
 tick(); setInterval(tick,30000);
 
@@ -98,7 +97,6 @@ bm.style.left='28px'; bm.style.top='150px';
 desktop.appendChild(bm);
 // double-click opens the Read Me; dragging the link installs the bookmarklet
 bm.querySelector('.octo-link').addEventListener('click', function(e){ e.preventDefault(); });
-bm.addEventListener('dblclick', function(){ openReadMe(); });
 bm.querySelector('.octo-link').addEventListener('dragstart', function(e){
   e.dataTransfer.setData('text/uri-list', bmCode);
   e.dataTransfer.setData('text/plain', bmCode);
@@ -263,22 +261,6 @@ function openSubcategory(subName, parentName){
              {count: sites.length+' items', width:480, height:400});
 }
 
-// ── README WINDOW (octopus bookmarklet instructions) ──
-function openReadMe(){
-  var html =
-    '<div class="readme">'
-    + '<p><b>🐙 the bookmarked octopus</b></p>'
-    + '<p>This little guy is a bookmarklet \u2014 a bookmark that runs a tiny bit of code.</p>'
-    + '<p><b>To install:</b></p>'
-    + '<p>1. Make sure your browser\u2019s bookmarks bar is visible.<br>'
-    + '2. Drag the octopus up onto the bookmarks bar.<br>'
-    + '3. Let go \u2014 it\u2019s now saved as a bookmark.</p>'
-    + '<p><b>To use:</b> click the octopus bookmark anytime to jump straight back to bookmarked.</p>'
-    + '<p style="color:#888">(Double-clicking the octopus on the desktop opens this note. '
-    + 'Dragging it installs the bookmarklet.)</p>'
-    + '</div>';
-  makeWindow('readme', '📄  Read Me', html, {width:380, height:300, bodyClass:'readme-body'});
-}
 
 // ── SPREADSHEET WINDOW (table) ──
 // Default order: shuffled once per visit (Fisher–Yates). Column sort still works on click.
