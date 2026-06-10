@@ -128,6 +128,8 @@ var DATA = [
     "label":"coolors.co", "cat":"Design Resources", "sub":"Colors" },
   { "url":"https://www.cosmos.so/", "title":"Cosmos",
     "label":"cosmos.so", "cat":"Tools & Community", "sub":"Moodboards, wormholes" },
+  { "url":"https://sublime.app/", "title":"Sublime",
+    "label":"sublime.app", "cat":"Tools & Community", "sub":"Moodboards, wormholes" },
   { "url":"https://creativemornings.com/", "title":"CreativeMornings",
     "label":"creativemornings.com", "cat":"Tools & Community", "sub":"design communities" },
   { "url":"https://www.daily.place/", "title":"daily.place",
