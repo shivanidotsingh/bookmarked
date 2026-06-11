@@ -20,6 +20,9 @@ var DATA = [
     "label":"airconsole.com", "cat":"Tools & Community", "sub":"Make a game" },
   { "url":"https://albumcolors.com/", "title":"Album Colors Of The Year",
     "label":"albumcolors.com", "cat":"Design Resources", "sub":"Colors" },
+    { "url":"https://riso.lfesp.me/", "title":"Riso",
+    "label":"riso.lfesp.me", "cat":"Design Resources", "sub":"Colors" },
+  
   { "url":"https://javier.xyz/cohesive-colors", "title":"Cohesive Colors",
     "label":"cohesive-colors", "cat":"Design Resources", "sub":"Colors" },
     { "url":"https://www.radix-ui.com/colors", "title":"Accessible colors for UI",
