@@ -40,6 +40,8 @@ var DATA = [
     "label":"are.na", "cat":"Tools & Community", "sub":"Notes, browsers" },
   { "url":"https://www.arkives.club/", "title":"Arkives Club",
     "label":"arkives.club", "cat":"Pass Time", "sub":"Site of Sites" },
+   { "url":"https://archive.org/", "title":"The Internet Archive",
+    "label":"archive.org", "cat":"Pass Time", "sub":"Site of Sites" },
   { "url":"https://www.artefactgroup.com/resources/the-tarot-cards-of-tech/", "title":"The Tarot Cards of Tech",
     "label":"artefactgroup.com", "cat":"Tools & Community", "sub":"Toolkits + Method Cards" },
   { "url":"https://artofsymbols.com/", "title":"Art of Symbols",
