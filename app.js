@@ -80,7 +80,7 @@ desktop.appendChild(sheetIcon);
 // Rainbow shuffle icon (top-left)
 var shuf = document.createElement('div');
 shuf.className='icon';
-shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">random site</div>';
+shuf.innerHTML='<div class="glyph">🌻</div><div class="lbl">random site</div>';
 shuf.style.left='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
@@ -269,6 +269,7 @@ function sheetBodyHTML(){
 function openSheet(){
   var w = makeWindow('sheet', 'bookmarked.xls', sheetBodyHTML(),
                      {width:680, height:480, bodyClass:'sheet-body', count:''});
+  w.style.left = '120px';
   var f=w.querySelector('#sheet-filters');
   if(f && !f.dataset.built){
     CATS.forEach(function(c){
