@@ -187,8 +187,10 @@ var DATA = [
     "label":"docs.google.com", "cat":"Design Resources", "sub":"Personas and Journey Maps" },
   { "url":"https://doteveryone.org.uk/project/consequence-scanning/", "title":"Consequence Scanning",
     "label":"doteveryone.org.uk", "cat":"Tools & Community", "sub":"Toolkits + Method Cards" },
-  { "url":"http://drawing.garden/", "title":"drawing.garden",
-    "label":"drawing.garden", "cat":"Pass Time", "sub":"Sounds" },
+  { "url":"https://www.hotairfactory.com/", "title":"HotAir Factory",
+    "label":"https://www.hotairfactory.com/", "cat":"Pass Time", "sub":"Artificial Intelligence" },
+    { "url":"https://designtitles.com/", "title":"Design Titles",
+    "label":"designtitles.com", "cat":"Pass Time", "sub":"typology, collections" },
   { "url":"https://dropbox.design/resources", "title":"Dropbox Design Resources",
     "label":"dropbox.design", "cat":"Tools & Community", "sub":"Toolkits + Method Cards" },
   { "url":"https://dscout.com/people-nerds", "title":"People Nerds by dscout",
@@ -809,6 +811,7 @@ var CATS = [
       { "name":"typology, collections", "emoji":"\ud83c\udfb2" },
       { "name":"Books, Places to read", "emoji":"\ud83d\udcd6" },
       { "name":"Film things", "emoji":"\ud83c\udfac" },
+      { "name":"Artificial Intelligence", "emoji":"\u2601\ufe0f" },
       { "name":"Birds, Flowers", "emoji":"\ud83d\udc26" },
       { "name":"Earth Typo", "emoji":"\ud83d\uddfa\ufe0f" }
   ] }
