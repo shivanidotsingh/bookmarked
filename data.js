@@ -63,7 +63,8 @@ var DATA = [
     "label":"audubon.org", "cat":"Pass Time", "sub":"Birds, Flowers" },
   { "url":"https://www.autodraw.com/", "title":"AutoDraw",
     "label":"autodraw.com", "cat":"Tools & Community", "sub":"Drawing, Scrawling" },
-  { "url":"https://www.awwwards.com/awwwards/collections/free-fonts/", "title":"Free Fonts - Awwwards",
+  
+  { "url":"https://www.awwwards.com/awwwards/collections/free-fonts/", "title":"Free Fonts",
     "label":"awwwards.com", "cat":"Design Resources", "sub":"Typography" },
   { "url":"https://www.bayareamade.us/", "title":"Bay Area Made",
     "label":"bayareamade.us", "cat":"Learn & Collaborate", "sub":"Zero Waste Resources" },
@@ -273,6 +274,14 @@ var DATA = [
     "label":"grabient.com", "cat":"Tools & Community", "sub":"Cascading Style Sheets" },
   { "url":"http://gradient.horse/", "title":"gradient.horse",
     "label":"gradient.horse", "cat":"Tools & Community", "sub":"Drawing, Scrawling" },
+  
+  { "url":"https://www.photopea.com/", "title":"Photoshop Online",
+    "label":"photopea.com", "cat":"Tools & Community", "sub":"Alternate Tools" },
+    { "url":"https://www.remove.bg/", "title":"Remove Background",
+    "label":"remove.bg", "cat":"Tools & Community", "sub":"Alternate Tools" },
+    { "url":" https://alternativeto.net/", "title":"Crowdsourced Alternate Tools",
+    "label":"alternativeto.net", "cat":"Tools & Community", "sub":"Alternate Tools" },
+ 
   { "url":"https://graphicburger.com/", "title":"GraphicBurger",
     "label":"graphicburger.com", "cat":"Design Resources", "sub":"Mockups" },
   { "url":"http://grid.guide/", "title":"grid.guide",
@@ -785,6 +794,7 @@ var CATS = [
       { "name":"Decks, Cards, Pages", "emoji":"\ud83d\udfe1" },
       { "name":"Notes, browsers", "emoji":"\u270d\ufe0f" },
       { "name":"Cookies", "emoji":"\ud83c\udf6a" },
+      { "name":"Alternate Tools", "emoji":"\ud83d\udc0c" },
       { "name":"miscellaneous", "emoji":"\ud83c\udf4c" }
   ] },
   { "name":"Learn & Collaborate", "emoji":"\ud83e\udd1d", "subs":[
