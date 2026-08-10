@@ -761,12 +761,13 @@ var DATA = [
 
 var CATS = [
   { "name":"Design Resources", "emoji":"\ud83c\udfa8", "subs":[
-      { "name":"Personas and Journey Maps", "emoji":"\ud83e\uddd5" },
+      
       { "name":"Icons & Symbology", "emoji":"\u2663\ufe0f" },
       { "name":"Illustrations", "emoji":"\ud83c\udf55" },
       { "name":"Glyphs and Patterns", "emoji":"\ud83d\udcb4" },
       { "name":"Logo Lab", "emoji":"\ud83d\udd2e" },
       { "name":"Boards, Charts, Collages", "emoji":"\ud83d\uddc2\ufe0f" },
+      { "name":"Personas and Journey Maps", "emoji":"\ud83e\uddd5" },
       { "name":"Colors", "emoji":"\ud83c\udf08" },
       { "name":"Typography", "emoji":"\ud83e\udd93" },
       { "name":"Image Generation", "emoji":"\ud83e\uddda" },
