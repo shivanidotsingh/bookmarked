@@ -18,7 +18,13 @@
 
 <!-- DESKTOP (icons + windows injected by app.js) -->
 <div id="desktop"></div>
-<div id="mobile-note">this website is designed for a desktop viewing</div>
+<div id="mobile-note" class="window">
+  <div class="title-bar">
+    <span class="title-text">notice</span>
+    <button class="close-box" id="mobile-note-close" title="close"></button>
+  </div>
+  <div class="window-body mobile-note-body">this website is designed for a desktop viewing</div>
+</div>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
