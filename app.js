@@ -47,26 +47,22 @@ function nextRightSlot(){
   return y;
 }
 
-// Category folders
-CATS.forEach(function(cat){
+// Category folders, with any promoted subcategories placed immediately after their parent
+function makeDesktopIcon(className, glyphHTML, label, onOpen){
   var el = document.createElement('div');
-  el.className = 'icon folder';
-  el.innerHTML = '<div class="glyph">'+FOLDER_SVG+'</div><div class="lbl">'+esc(cat.name)+'</div>';
+  el.className = 'icon '+className;
+  el.innerHTML = '<div class="glyph">'+glyphHTML+'</div><div class="lbl">'+esc(label)+'</div>';
   el.style.left = startX+'px';
   el.style.top  = nextRightSlot()+'px';
-  makeIconDraggable(el, function(){ openFolder(cat); });
+  makeIconDraggable(el, onOpen);
   desktop.appendChild(el);
-});
+}
 
-// Promoted subcategory icons (Colors, Toolkits)
-PROMOTED.forEach(function(p){
-  var el = document.createElement('div');
-  el.className = 'icon promoted';
-  el.innerHTML = '<div class="glyph">'+p.icon+'</div><div class="lbl">'+esc(p.sub)+'</div>';
-  el.style.left = startX+'px';
-  el.style.top  = nextRightSlot()+'px';
-  makeIconDraggable(el, function(){ openSubcategory(p.sub, p.parent); });
-  desktop.appendChild(el);
+CATS.forEach(function(cat){
+  makeDesktopIcon('folder', FOLDER_SVG, cat.name, function(){ openFolder(cat); });
+  PROMOTED.filter(function(p){ return p.parent===cat.name; }).forEach(function(p){
+    makeDesktopIcon('promoted', p.icon, p.sub, function(){ openSubcategory(p.sub, p.parent); });
+  });
 });
 
 // Spreadsheet icon
@@ -80,7 +76,7 @@ desktop.appendChild(sheetIcon);
 
 // Rainbow shuffle icon (top-left)
 var shuf = document.createElement('div');
-shuf.className='icon';
+shuf.className='icon icon-stumble';
 shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">random site</div>';
 shuf.style.left='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
@@ -185,14 +181,14 @@ function folderBodyHTML(cat){
   subsWithSites.forEach(function(sub, i){
     var n = sites.filter(function(d){ return d.sub===sub.name; }).length;
     side += '<a class="side-item" data-target="sub-'+i+'">'
-         +  '<span class="se">'+sub.emoji+'</span>'+esc(sub.name)
+         +  esc(sub.name)
          +  '<span class="side-count">'+n+'</span></a>';
   });
   side += '</nav>';
   var main = '<div class="folder-main">';
   subsWithSites.forEach(function(sub, i){
     var inSub = sites.filter(function(d){ return d.sub===sub.name; });
-    main += '<div class="subhead" id="sub-'+i+'"><span class="se">'+sub.emoji+'</span>'+esc(sub.name)
+    main += '<div class="subhead" id="sub-'+i+'">'+esc(sub.name)
          +  ' <span style="font-weight:normal;color:#999">('+inSub.length+')</span></div>';
     main += '<div class="filegrid">';
     inSub.forEach(function(d){
@@ -231,9 +227,6 @@ function wireSidebar(w){
 // ── PROMOTED SUBCATEGORY WINDOW (just that one subcategory's sites) ──
 function openSubcategory(subName, parentName){
   var sites = DATA.filter(function(d){ return d.cat===parentName && d.sub===subName; });
-  var emoji = '';
-  var cat = CATS.find(function(c){ return c.name===parentName; });
-  if(cat){ var s = cat.subs.find(function(x){ return x.name===subName; }); if(s) emoji=s.emoji; }
   var main = '<div class="folder-main"><div class="filegrid" style="padding-top:14px">';
   sites.forEach(function(d){
     main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.title)+'">'
@@ -241,7 +234,7 @@ function openSubcategory(subName, parentName){
          +  '<span class="fname">'+esc(d.label)+'</span></a>';
   });
   main += '</div></div>';
-  makeWindow('sub:'+subName, emoji+'  '+esc(subName), main,
+  makeWindow('sub:'+subName, esc(subName), main,
              {count: sites.length+' items', width:680, height:480});
 }
 
