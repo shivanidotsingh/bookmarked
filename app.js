@@ -26,11 +26,15 @@ function isPromoted(catName, subName){
 }
 
 // ── CLOCK (menu bar) ──
+var DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function tick(){
   var d=new Date();
   var h=d.getHours(), m=d.getMinutes();
   var ap=h<12?'AM':'PM'; var h12=h%12; if(h12===0)h12=12;
-  document.getElementById('clock').textContent = h12+':'+(m<10?'0':'')+m+' '+ap;
+  var stamp = DAY_NAMES[d.getDay()]+' '+MONTH_NAMES[d.getMonth()]+' '+d.getDate()
+            + ' '+h12+':'+(m<10?'0':'')+m+' '+ap;
+  document.getElementById('clock').textContent = stamp;
   //applySky(h);
 }
 tick(); setInterval(tick,30000);
@@ -204,9 +208,7 @@ function folderBodyHTML(cat){
 }
 
 function openFolder(cat){
-  var sites = DATA.filter(function(d){ return d.cat===cat.name && !isPromoted(cat.name, d.sub); });
-  var w = makeWindow('folder:'+cat.name, cat.emoji+'  '+esc(cat.name), folderBodyHTML(cat),
-                     {count: sites.length+' items'});
+  var w = makeWindow('folder:'+cat.name, cat.emoji+'  '+esc(cat.name), folderBodyHTML(cat));
   wireSidebar(w);
 }
 
@@ -236,7 +238,7 @@ function openSubcategory(subName, parentName){
   });
   main += '</div></div>';
   makeWindow('sub:'+subName, esc(subName), main,
-             {count: sites.length+' items', width:750, height:530});
+             {width:750, height:530});
 }
 
 // ── SPREADSHEET WINDOW (table) ──
