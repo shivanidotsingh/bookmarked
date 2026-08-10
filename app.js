@@ -126,8 +126,8 @@ function makeWindow(key, title, bodyHTML, opts){
   var offset = (winCount % 6) * 40;
   w.style.left = (90 + offset) + 'px';
   w.style.top  = (60 + offset) + 'px';
-  w.style.width  = (opts.width  || 680) + 'px';
-  w.style.height = (opts.height || 480) + 'px';
+  w.style.width  = (opts.width  || 750) + 'px';
+  w.style.height = (opts.height || 530) + 'px';
   w.style.zIndex = ++zTop;
   winCount++;
 
@@ -236,7 +236,7 @@ function openSubcategory(subName, parentName){
   });
   main += '</div></div>';
   makeWindow('sub:'+subName, esc(subName), main,
-             {count: sites.length+' items', width:680, height:480});
+             {count: sites.length+' items', width:750, height:530});
 }
 
 // ── SPREADSHEET WINDOW (table) ──
@@ -262,7 +262,7 @@ function sheetBodyHTML(){
 }
 function openSheet(){
   var w = makeWindow('sheet', 'bookmarked.xls', sheetBodyHTML(),
-                     {width:680, height:480, bodyClass:'sheet-body', count:''});
+                     {width:750, height:530, bodyClass:'sheet-body', count:''});
   w.style.left = '120px';  // shift right to avoid covering desktop icons
   var f=w.querySelector('#sheet-filters');
   if(f && !f.dataset.built){
@@ -334,3 +334,11 @@ desktop.addEventListener('mousedown', function(e){
   if(e.target===desktop || e.target.id==='hint')
     document.querySelectorAll('.icon').forEach(function(n){n.classList.remove('selected');});
 });
+
+// mobile notice modal close button
+var mobileNoteClose = document.getElementById('mobile-note-close');
+if(mobileNoteClose){
+  mobileNoteClose.addEventListener('click', function(){
+    document.getElementById('mobile-note').style.display = 'none';
+  });
+}
