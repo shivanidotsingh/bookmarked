@@ -73,7 +73,7 @@ CATS.forEach(function(cat){
 // Spreadsheet icon
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">🔍︎</div><div class="lbl">bookmarked.xls</div>';
+sheetIcon.innerHTML='<div class="glyph">🔍︎</div><div class="lbl">all the sites</div>';
 sheetIcon.style.left = startX+'px';
 sheetIcon.style.top  = nextRightSlot()+'px';
 makeIconDraggable(sheetIcon, openSheet);
@@ -263,7 +263,7 @@ function sheetBodyHTML(){
     + '</tr></thead><tbody id="sheet-tbody"></tbody></table>';
 }
 function openSheet(){
-  var w = makeWindow('sheet', 'bookmarked.xls', sheetBodyHTML(),
+  var w = makeWindow('sheet', 'all the sites', sheetBodyHTML(),
                      {width:750, height:530, bodyClass:'sheet-body', count:''});
   w.style.left = '120px';  // shift right to avoid covering desktop icons
   var f=w.querySelector('#sheet-filters');
