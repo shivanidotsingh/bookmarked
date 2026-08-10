@@ -47,21 +47,22 @@ function nextRightSlot(){
   return y;
 }
 
-// Category folders, with any promoted subcategories placed immediately after their parent
-function makeDesktopIcon(className, glyphHTML, label, onOpen){
+// Category folders, with any promoted subcategories placed beside their parent (same row, one column left)
+function makeDesktopIcon(x, y, className, glyphHTML, label, onOpen){
   var el = document.createElement('div');
   el.className = 'icon '+className;
   el.innerHTML = '<div class="glyph">'+glyphHTML+'</div><div class="lbl">'+esc(label)+'</div>';
-  el.style.left = startX+'px';
-  el.style.top  = nextRightSlot()+'px';
+  el.style.left = x+'px';
+  el.style.top  = y+'px';
   makeIconDraggable(el, onOpen);
   desktop.appendChild(el);
 }
 
 CATS.forEach(function(cat){
-  makeDesktopIcon('folder', FOLDER_SVG, cat.name, function(){ openFolder(cat); });
+  var rowY = nextRightSlot();
+  makeDesktopIcon(startX, rowY, 'folder', FOLDER_SVG, cat.name, function(){ openFolder(cat); });
   PROMOTED.filter(function(p){ return p.parent===cat.name; }).forEach(function(p){
-    makeDesktopIcon('promoted', p.icon, p.sub, function(){ openSubcategory(p.sub, p.parent); });
+    makeDesktopIcon(startX-110, rowY, 'promoted', p.icon, p.sub, function(){ openSubcategory(p.sub, p.parent); });
   });
 });
 
