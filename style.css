@@ -18,20 +18,20 @@ body{
   -webkit-user-select:none;
 }
 
-/* MENU BAR */
+/* MENU BAR (bottom taskbar-style) */
 #menubar{
-  position:fixed;top:0;left:0;right:0;height:22px;
-  background:#fff;border-bottom:1px solid #000;
+  position:fixed;bottom:0;left:0;right:0;height:22px;
+  background:#fff;border-top:1px solid #000;
   display:flex;align-items:center;gap:18px;padding:0 10px;
   font-size:12px;z-index:1000;
 }
 .mb-apple{font-size:13px;}
 .mb-title{font-weight:bold;}
 .mb-spacer{flex:1;}
-.mb-clock{font-variant-numeric:tabular-nums;}
+.mb-clock{font-variant-numeric:tabular-nums;white-space:nowrap;}
 
 /* DESKTOP */
-#desktop{position:fixed;inset:22px 0 0 0;}
+#desktop{position:fixed;inset:0 0 22px 0;}
 #mobile-note{display:none;}
 
 /* DESKTOP ICONS */
