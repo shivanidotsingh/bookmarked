@@ -31,6 +31,7 @@ function tick(){
   var h=d.getHours(), m=d.getMinutes();
   var ap=h<12?'AM':'PM'; var h12=h%12; if(h12===0)h12=12;
   document.getElementById('clock').textContent = h12+':'+(m<10?'0':'')+m+' '+ap;
+  //applySky(h);
 }
 tick(); setInterval(tick,30000);
 
@@ -80,7 +81,7 @@ desktop.appendChild(sheetIcon);
 // Rainbow shuffle icon (top-left)
 var shuf = document.createElement('div');
 shuf.className='icon';
-shuf.innerHTML='<div class="glyph">🌻</div><div class="lbl">random site</div>';
+shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">random site</div>';
 shuf.style.left='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
@@ -125,11 +126,11 @@ function makeWindow(key, title, bodyHTML, opts){
   }
   var w = document.createElement('div');
   w.className = 'window';
-  var offset = (winCount % 6) * 26;
+  var offset = (winCount % 6) * 40;
   w.style.left = (90 + offset) + 'px';
   w.style.top  = (60 + offset) + 'px';
-  w.style.width  = (opts.width  || 560) + 'px';
-  w.style.height = (opts.height || 440) + 'px';
+  w.style.width  = (opts.width  || 680) + 'px';
+  w.style.height = (opts.height || 480) + 'px';
   w.style.zIndex = ++zTop;
   winCount++;
 
@@ -241,9 +242,8 @@ function openSubcategory(subName, parentName){
   });
   main += '</div></div>';
   makeWindow('sub:'+subName, emoji+'  '+esc(subName), main,
-             {count: sites.length+' items', width:480, height:400});
+             {count: sites.length+' items', width:680, height:480});
 }
-
 
 // ── SPREADSHEET WINDOW (table) ──
 // Default order: shuffled once per visit (Fisher–Yates). Column sort still works on click.
@@ -269,7 +269,7 @@ function sheetBodyHTML(){
 function openSheet(){
   var w = makeWindow('sheet', 'bookmarked.xls', sheetBodyHTML(),
                      {width:680, height:480, bodyClass:'sheet-body', count:''});
-  w.style.left = '120px';
+  w.style.left = '120px';  // shift right to avoid covering desktop icons
   var f=w.querySelector('#sheet-filters');
   if(f && !f.dataset.built){
     CATS.forEach(function(c){
