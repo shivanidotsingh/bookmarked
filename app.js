@@ -25,19 +25,6 @@ function isPromoted(catName, subName){
   return PROMOTED.some(function(p){ return p.parent===catName && p.sub===subName; });
 }
 
-// ── CLOCK (menu bar) ──
-var DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-var MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-function tick(){
-  var d=new Date();
-  var h=d.getHours(), m=d.getMinutes();
-  var ap=h<12?'AM':'PM'; var h12=h%12; if(h12===0)h12=12;
-  var stamp = DAY_NAMES[d.getDay()]+' '+MONTH_NAMES[d.getMonth()]+' '+d.getDate()
-            + ' '+h12+':'+(m<10?'0':'')+m+' '+ap;
-  document.getElementById('clock').textContent = stamp;
-  //applySky(h);
-}
-tick(); setInterval(tick,30000);
 
 // ── BUILD DESKTOP ICONS ──
 var desktop = document.getElementById('desktop');
@@ -73,7 +60,7 @@ CATS.forEach(function(cat){
 // Spreadsheet icon
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">🔍︎</div><div class="lbl">all the sites</div>';
+sheetIcon.innerHTML='<div class="glyph">🔍︎</div><div class="lbl">shivani\'s bookmarks</div>';
 sheetIcon.style.left = startX+'px';
 sheetIcon.style.top  = nextRightSlot()+'px';
 makeIconDraggable(sheetIcon, openSheet);
@@ -263,7 +250,7 @@ function sheetBodyHTML(){
     + '</tr></thead><tbody id="sheet-tbody"></tbody></table>';
 }
 function openSheet(){
-  var w = makeWindow('sheet', 'all the sites', sheetBodyHTML(),
+  var w = makeWindow('sheet', 'shivani\'s bookmarks', sheetBodyHTML(),
                      {width:750, height:530, bodyClass:'sheet-body', count:''});
   w.style.left = '120px';  // shift right to avoid covering desktop icons
   var f=w.querySelector('#sheet-filters');
