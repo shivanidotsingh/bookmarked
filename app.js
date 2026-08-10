@@ -197,9 +197,9 @@ function folderBodyHTML(cat){
          +  ' <span style="font-weight:normal;color:#999">('+inSub.length+')</span></div>';
     main += '<div class="filegrid">';
     inSub.forEach(function(d){
-      main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.title)+'">'
+      main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
            +  '<img src="'+favicon(d.url)+'" alt="">'
-           +  '<span class="fname">'+esc(d.label)+'</span></a>';
+           +  '<span class="fname">'+esc(d.title)+'</span></a>';
     });
     main += '</div>';
   });
@@ -232,9 +232,9 @@ function openSubcategory(subName, parentName){
   var sites = DATA.filter(function(d){ return d.cat===parentName && d.sub===subName; });
   var main = '<div class="folder-main"><div class="filegrid" style="padding-top:14px">';
   sites.forEach(function(d){
-    main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.title)+'">'
+    main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
          +  '<img src="'+favicon(d.url)+'" alt="">'
-         +  '<span class="fname">'+esc(d.label)+'</span></a>';
+         +  '<span class="fname">'+esc(d.title)+'</span></a>';
   });
   main += '</div></div>';
   makeWindow('sub:'+subName, esc(subName), main,
@@ -316,8 +316,8 @@ function renderSheet(){
   var rows='';
   f.forEach(function(d){
     rows += '<tr>'
-      + '<td class="c-site"><a href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.title)+'">'
-      +   '<img src="'+favicon(d.url)+'" alt="">'+esc(d.label)+'</a></td>'
+      + '<td class="c-site"><a href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
+      +   '<img src="'+favicon(d.url)+'" alt="">'+esc(d.title)+'</a></td>'
       + '<td><span class="tag-cat cc-'+slug(d.cat)+'">'+esc(d.cat)+'</span></td>'
       + '<td>'+esc(d.sub)+'</td>'
       + '</tr>';
