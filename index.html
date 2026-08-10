@@ -10,6 +10,7 @@
 
 <!-- MENU BAR -->
 <div id="menubar">
+  <span class="mb-apple">🐙</span>
   <span class="mb-title">shivani's bookmarks</span>
   <span class="mb-spacer"></span>
   <span class="mb-clock" id="clock"></span>
@@ -17,9 +18,10 @@
 
 <!-- DESKTOP (icons + windows injected by app.js) -->
 <div id="desktop"></div>
+<div id="mobile-note">this website is designed for a desktop viewing</div>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
-<script>window.addEventListener('load', function(){ openSheet(); });</script>
+<script>window.addEventListener('load', function(){ if(window.innerWidth > 640) openSheet(); });</script>
 </body>
 </html>
