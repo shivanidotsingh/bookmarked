@@ -207,7 +207,16 @@ function wireSidebar(w){
     a.addEventListener('click', function(e){
       e.preventDefault();
       var t = body.querySelector('#'+a.getAttribute('data-target'));
-      if(t) mainEl.scrollTo({ top: t.offsetTop - mainEl.offsetTop - 4, behavior:'smooth' });
+      if(t){
+        // Measure true position with scroll reset to 0 first — sticky subheads that have
+        // been scrolled past stack on top of one another at the same on-screen coordinate,
+        // so measuring mid-scroll gives a false position for any "buried" target.
+        var saved = mainEl.scrollTop;
+        mainEl.scrollTop = 0;
+        var delta = t.getBoundingClientRect().top - mainEl.getBoundingClientRect().top;
+        mainEl.scrollTop = saved;
+        mainEl.scrollTo({ top: delta - 4, behavior:'smooth' });
+      }
       body.querySelectorAll('.side-item').forEach(function(s){ s.classList.remove('active'); });
       a.classList.add('active');
     });
