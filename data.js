@@ -180,8 +180,7 @@ var DATA = [
     "label":"designtitles.com", "cat":"Pass Time", "sub":"typology, collections" },
   { "url":"https://www.are.na/leuys/a-collection-of-collections", "title":"Collection of Collections",
     "label":"a-collection-of-collections", "cat":"Pass Time", "sub":"typology, collections" },
-    { "url":"https://annualreport.gallery/", "title":"Annual Report Gallery",
-    "label":"annualreport.gallery", "cat":"Pass Time", "sub":"typology, collections" },
+
   { "url":"https://diagram.website/", "title":"Diagram Website",
     "label":"diagram.website", "cat":"Pass Time", "sub":"Site of Sites" },
   { "url":"https://digitalconfidence.design/", "title":"Designing for Digital Confidence",
@@ -194,8 +193,10 @@ var DATA = [
     "label":"docs.google.com", "cat":"Design Resources", "sub":"Personas and Journey Maps" },
   { "url":"https://doteveryone.org.uk/project/consequence-scanning/", "title":"Consequence Scanning",
     "label":"doteveryone.org.uk", "cat":"Tools & Community", "sub":"Toolkits + Method Cards" },
-    { "url":"https://designtitles.com/", "title":"Design Titles",
-    "label":"designtitles.com", "cat":"Pass Time", "sub":"typology, collections" },
+  
+{ "url":"https://www.annualreport.gallery/", "title":"Annual Report Gallery",
+  "label":"annualreport.gallery", "cat":"Design References", "sub":"eyecandy" },
+  
       { "url":"https://felipe-hernandez.com/work/bar-napkin-archive", "title":"Bar Napkins",
     "label":"bar-napkin-archive", "cat":"Pass Time", "sub":"typology, collections" },
   { "url":"https://dropbox.design/resources", "title":"Dropbox Design Resources",
