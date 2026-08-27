@@ -10,8 +10,6 @@ var DATA = [
     "label":"a11yproject.com", "cat":"Design References", "sub":"A11y and checklists" },
   { "url":"https://about.me/", "title":"about.me | your personal homepage",
     "label":"about.me", "cat":"Tools & Community", "sub":"Decks, Cards, Pages" },
-  { "url":"https://www.abstrakt.design/", "title":"abstrakt.design",
-    "label":"abstrakt.design", "cat":"Design Resources", "sub":"Illustrations" },
   { "url":"https://www.accessguide.io/", "title":"Homepage - Access Guide",
     "label":"accessguide.io", "cat":"Design References", "sub":"A11y and checklists" },
   { "url":"https://adplist.org/", "title":"ADPList",
