@@ -2,17 +2,20 @@
 // Reads DATA + CATS from data.js
 
 function slug(s){ return s.replace(/[^A-Za-z]/g,''); }
-function favicon(url){
-  var host;
-  try { host = new URL(url).hostname; } catch(e){ host = url; }
-  return 'https://icons.duckduckgo.com/ip3/'+host+'.ico';
+function hostOf(url){
+  try { return new URL(url).hostname; } catch(e){ return url; }
 }
+function faviconDDG(url){ return 'https://icons.duckduckgo.com/ip3/'+hostOf(url)+'.ico'; }
+function faviconGoogle(url){ return 'https://www.google.com/s2/favicons?domain='+hostOf(url)+'&sz=64'; }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-// Shared favicon markup: real favicon <img>, with a plain unicode flower shown instead
-// if the image fails to load (broken favicon, blocked request, etc.)
+// Shared favicon markup: tries DuckDuckGo first, falls back to Google if that fails,
+// and shows a plain sunflower emoji if both sources fail to load.
 function faviconHTML(url){
+  var g = faviconGoogle(url).replace(/"/g,'&quot;');
   return '<span class="favicon-wrap">'
-       + '<img src="'+favicon(url)+'" alt="" onerror="this.classList.add(\'broken\')">'
+       + '<img src="'+faviconDDG(url)+'" alt="" data-fallback="'+g+'" '
+       + 'onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src=this.dataset.fallback;}'
+       + 'else{this.classList.add(\'broken\');}">'
        + '</span>';
 }
 
@@ -111,7 +114,11 @@ var zTop = 100;
 var winCount = 0;
 var openWindows = {};   // key -> element, prevents duplicate windows
 
-function focusWindow(el){ el.style.zIndex = ++zTop; }
+function focusWindow(el){
+  el.style.zIndex = ++zTop;
+  document.querySelectorAll('.window').forEach(function(w){ w.classList.remove('active'); });
+  el.classList.add('active');
+}
 
 function makeWindow(key, title, bodyHTML, opts){
   opts = opts || {};
@@ -126,7 +133,6 @@ function makeWindow(key, title, bodyHTML, opts){
   w.style.top  = (60 + offset) + 'px';
   w.style.width  = (opts.width  || 750) + 'px';
   w.style.height = (opts.height || 530) + 'px';
-  w.style.zIndex = ++zTop;
   winCount++;
 
   w.innerHTML =
@@ -139,6 +145,7 @@ function makeWindow(key, title, bodyHTML, opts){
 
   desktop.appendChild(w);
   openWindows[key] = w;
+  focusWindow(w);
 
   // focus on click
   w.addEventListener('mousedown', function(){ focusWindow(w); });
@@ -156,7 +163,7 @@ function makeWindow(key, title, bodyHTML, opts){
 function makeWindowDraggable(w, handle){
   var sx,sy,ox,oy,down=false;
   handle.addEventListener('mousedown', function(e){
-    if(e.target.classList.contains('close-box')) return;
+    if(e.target.classList.contains('close-box') || e.target.classList.contains('crumb-back')) return;
     down=true; focusWindow(w);
     sx=e.clientX; sy=e.clientY;
     ox=parseInt(w.style.left); oy=parseInt(w.style.top);
@@ -212,18 +219,34 @@ function folderBodyHTML(cat){
 
 function openFolder(cat){
   var w = makeWindow('folder:'+cat.name, esc(cat.name), folderBodyHTML(cat));
-  if(FLAT_CATEGORIES.indexOf(cat.name) === -1) wireFolderIndex(w);
+  if(FLAT_CATEGORIES.indexOf(cat.name) === -1) wireFolderIndex(w, cat);
 }
 
-function wireFolderIndex(w){
+function wireFolderIndex(w, cat){
   w.querySelectorAll('.subfolder-tile').forEach(function(t){
     t.addEventListener('click', function(){
-      openSubcategory(t.getAttribute('data-sub'), t.getAttribute('data-parent'));
+      showSubInWindow(w, cat, t.getAttribute('data-sub'));
     });
   });
 }
 
-// ── SUBCATEGORY WINDOW (just that one subcategory's sites) ──
+// Swap the open folder window's content in-place to show one subcategory's
+// sites, with a clickable breadcrumb back to the subfolder index — no new window.
+function showSubInWindow(w, cat, subName){
+  var sites = DATA.filter(function(d){ return d.cat===cat.name && d.sub===subName; });
+  w.querySelector('.title-text').innerHTML =
+    '<span class="crumb-back">'+esc(cat.name)+'</span> \u203a '+esc(subName);
+  w.querySelector('.window-body').innerHTML = '<div class="folder-main">'+filegridHTML(sites)+'</div>';
+  w.querySelector('.crumb-back').addEventListener('click', function(e){
+    e.stopPropagation();
+    w.querySelector('.title-text').textContent = cat.name;
+    w.querySelector('.window-body').innerHTML = folderBodyHTML(cat);
+    wireFolderIndex(w, cat);
+  });
+}
+
+// ── SUBCATEGORY WINDOW (standalone — used by the Colors/Toolkits desktop icons,
+// which have no parent folder window to navigate within) ──
 function openSubcategory(subName, parentName){
   var sites = DATA.filter(function(d){ return d.cat===parentName && d.sub===subName; });
   var main = '<div class="folder-main">'+filegridHTML(sites)+'</div>';
