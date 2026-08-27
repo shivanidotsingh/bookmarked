@@ -4,22 +4,25 @@
 function slug(s){ return s.replace(/[^A-Za-z]/g,''); }
 function favicon(url){ return 'https://www.google.com/s2/favicons?domain='+url+'&sz=64'; }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+// Shared favicon markup: real favicon <img>, with a plain unicode flower shown instead
+// if the image fails to load (broken favicon, blocked request, etc.)
+function faviconHTML(url){
+  return '<span class="favicon-wrap">'
+       + '<img src="'+favicon(url)+'" alt="" onerror="this.classList.add(\'broken\')">'
+       + '</span>';
+}
 
-// Modern macOS-style blue folder (inline SVG, scalable, exact color)
+// Monochrome flat folder (inline SVG, scalable, flat fill, no outline, no gradients)
 var FOLDER_SVG =
   '<svg class="folder-svg" viewBox="0 0 48 40" width="48" height="40" xmlns="http://www.w3.org/2000/svg">'
-  + '<defs><linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">'
-  + '<stop offset="0" stop-color="#7cc0f7"/><stop offset="1" stop-color="#3d92e8"/></linearGradient>'
-  + '<linearGradient id="fb" x1="0" y1="0" x2="0" y2="1">'
-  + '<stop offset="0" stop-color="#9ed1fb"/><stop offset="1" stop-color="#5aa8f0"/></linearGradient></defs>'
-  + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="url(#fb)"/>'
-  + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="url(#fg)"/>'
+  + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="#d6d6d6"/>'
+  + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="#f5f5f5"/>'
   + '</svg>';
 
 // Subcategories promoted to their own desktop icons (removed from parent folders)
 var PROMOTED = [
-  { sub:"Colors",                  parent:"Design Resources", icon:"🌈" },
-  { sub:"Toolkits + Method Cards", parent:"Tools & Community", icon:"⚙️" }
+  { sub:"Colors",                  parent:"Design Resources" },
+  { sub:"Toolkits + Method Cards", parent:"Tools & Community" }
 ];
 function isPromoted(catName, subName){
   return PROMOTED.some(function(p){ return p.parent===catName && p.sub===subName; });
@@ -53,14 +56,14 @@ CATS.forEach(function(cat){
   var rowY = nextRightSlot();
   makeDesktopIcon(startX, rowY, 'folder', FOLDER_SVG, cat.name, function(){ openFolder(cat); });
   PROMOTED.filter(function(p){ return p.parent===cat.name; }).forEach(function(p){
-    makeDesktopIcon(startX-110, rowY, 'promoted', p.icon, p.sub, function(){ openSubcategory(p.sub, p.parent); });
+    makeDesktopIcon(startX-110, rowY, 'promoted', FOLDER_SVG, p.sub, function(){ openSubcategory(p.sub, p.parent); });
   });
 });
 
 // Spreadsheet icon
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">🔍︎</div><div class="lbl">shivani\'s bookmarks</div>';
+sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">shivani\'s bookmarks</div>';
 sheetIcon.style.left = startX+'px';
 sheetIcon.style.top  = nextRightSlot()+'px';
 makeIconDraggable(sheetIcon, openSheet);
@@ -171,10 +174,9 @@ function folderBodyHTML(cat){
   });
   var side = '<nav class="folder-sidebar">';
   subsWithSites.forEach(function(sub, i){
-    var n = sites.filter(function(d){ return d.sub===sub.name; }).length;
     side += '<a class="side-item" data-target="sub-'+i+'">'
-         +  esc(sub.name)
-         +  '<span class="side-count">'+n+'</span></a>';
+         +  '<span class="side-label">'+esc(sub.name)+'</span>'
+         +  '</a>';
   });
   side += '</nav>';
   var main = '<div class="folder-main">';
@@ -185,7 +187,7 @@ function folderBodyHTML(cat){
     main += '<div class="filegrid">';
     inSub.forEach(function(d){
       main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
-           +  '<img src="'+favicon(d.url)+'" alt="">'
+           +  faviconHTML(d.url)
            +  '<span class="fname">'+esc(d.title)+'</span></a>';
     });
     main += '</div>';
@@ -195,7 +197,7 @@ function folderBodyHTML(cat){
 }
 
 function openFolder(cat){
-  var w = makeWindow('folder:'+cat.name, cat.emoji+'  '+esc(cat.name), folderBodyHTML(cat));
+  var w = makeWindow('folder:'+cat.name, esc(cat.name), folderBodyHTML(cat));
   wireSidebar(w);
 }
 
@@ -229,7 +231,7 @@ function openSubcategory(subName, parentName){
   var main = '<div class="folder-main"><div class="filegrid" style="padding-top:14px">';
   sites.forEach(function(d){
     main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
-         +  '<img src="'+favicon(d.url)+'" alt="">'
+         +  faviconHTML(d.url)
          +  '<span class="fname">'+esc(d.title)+'</span></a>';
   });
   main += '</div></div>';
@@ -313,7 +315,7 @@ function renderSheet(){
   f.forEach(function(d){
     rows += '<tr>'
       + '<td class="c-site"><a href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
-      +   '<img src="'+favicon(d.url)+'" alt="">'+esc(d.title)+'</a></td>'
+      +   faviconHTML(d.url)+esc(d.title)+'</a></td>'
       + '<td><span class="tag-cat cc-'+slug(d.cat)+'">'+esc(d.cat)+'</span></td>'
       + '<td>'+esc(d.sub)+'</td>'
       + '</tr>';
