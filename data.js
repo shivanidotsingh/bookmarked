@@ -326,7 +326,7 @@ var DATA = [
     "label":"clipart.studio", "cat":"Design Resources", "sub":"Boards, Charts, Collages" },
   { "url":"https://humanebydesign.com/principles", "title":"Humane by Design",
     "label":"humanebydesign.com", "cat":"Design References", "sub":"Guides, Codes, Manifestos" },
-  { "url":"https://www.ibm.com/design/thinking/page/toolkit", "title":"IBM Design Thinking Toolkit",
+  { "url":"https://www.ibm.com/training/enterprise-design-thinking", "title":"IBM Design Thinking Toolkit",
     "label":"ibm.com", "cat":"Tools & Community", "sub":"Toolkits" },
   { "url":"https://icebreakerz.vercel.app/", "title":"Icebreakerz",
     "label":"icebreakerz.vercel.app", "cat":"Learn & Collaborate", "sub":"IceBreakers" },
