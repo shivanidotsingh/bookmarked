@@ -120,8 +120,7 @@ var DATA = [
     "label":"casestudy.club", "cat":"Design References", "sub":"UX Case studies" },
   { "url":"https://catalogue.projectsbyif.com/", "title":"Data Patterns Catalogue",
     "label":"catalogue.projectsbyif.com", "cat":"Design References", "sub":"Interface Patterns" },
-  { "url":"https://chat.openai.com/chat", "title":"ChatGPT",
-    "label":"chat.openai.com", "cat":"Design Resources", "sub":"Image Generation" },
+  
   { "url":"https://www.checklist.design/", "title":"Checklist Design",
     "label":"checklist.design", "cat":"Design References", "sub":"A11y and checklists" },
   { "url":"https://www.circulardesignguide.com/resources", "title":"Circular Design Guide",
@@ -373,8 +372,7 @@ var DATA = [
     "label":"killedbygoogle.com", "cat":"Pass Time", "sub":"Site of Sites" },
   { "url":"https://kinopio.club/", "title":"Kinopio",
     "label":"kinopio.club", "cat":"Design Resources", "sub":"Boards, Charts, Collages" },
-  { "url":"https://www.kosmik.app/", "title":"Kosmik",
-    "label":"kosmik.app", "cat":"Tools & Community", "sub":"Notes, browsers" },
+  
   { "url":"https://ladieswinedesign.com/", "title":"Ladies, Wine & Design",
     "label":"ladieswinedesign.com", "cat":"Tools & Community", "sub":"design communities" },
   { "url":"http://lawsofux.com/", "title":"Laws of UX",
