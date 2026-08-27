@@ -2,7 +2,11 @@
 // Reads DATA + CATS from data.js
 
 function slug(s){ return s.replace(/[^A-Za-z]/g,''); }
-function favicon(url){ return 'https://www.google.com/s2/favicons?domain='+url+'&sz=64'; }
+function favicon(url){
+  var host;
+  try { host = new URL(url).hostname; } catch(e){ host = url; }
+  return 'https://icons.duckduckgo.com/ip3/'+host+'.ico';
+}
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 // Shared favicon markup: real favicon <img>, with a plain unicode flower shown instead
 // if the image fails to load (broken favicon, blocked request, etc.)
@@ -12,11 +16,11 @@ function faviconHTML(url){
        + '</span>';
 }
 
-// Monochrome flat folder (inline SVG, scalable, flat fill, no outline, no gradients)
+// Flat manila-yellow folder (inline SVG, scalable, flat fill, no outline, no gradients)
 var FOLDER_SVG =
   '<svg class="folder-svg" viewBox="0 0 48 40" width="48" height="40" xmlns="http://www.w3.org/2000/svg">'
-  + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="#d6d6d6"/>'
-  + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="#f5f5f5"/>'
+  + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="#e8b43a"/>'
+  + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="#ffdf80"/>'
   + '</svg>';
 
 // Subcategories promoted to their own desktop icons (removed from parent folders)
@@ -166,75 +170,63 @@ function makeWindowDraggable(w, handle){
   document.addEventListener('mouseup', function(){ down=false; });
 }
 
-// ── FOLDER WINDOW (sidebar of subcategories + grouped icon view) ──
+// Categories with few enough subcategories that grouping doesn't earn its keep —
+// these open as one plain grid of every site in the category, no subfolders.
+var FLAT_CATEGORIES = ["Learn & Collaborate"];
+
+// Shared tile-grid renderer: one favicon+title tile per site, used by both
+// flat-category windows and subcategory windows.
+function filegridHTML(sites){
+  var html = '<div class="filegrid">';
+  sites.forEach(function(d){
+    html += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
+         +  faviconHTML(d.url)
+         +  '<span class="fname">'+esc(d.title)+'</span></a>';
+  });
+  html += '</div>';
+  return html;
+}
+
+// ── FOLDER WINDOW ──
+// Flat categories: a single ungrouped grid of every site.
+// Nested categories: a grid of subfolder tiles, each opening its own subcategory window.
 function folderBodyHTML(cat){
   var sites = DATA.filter(function(d){ return d.cat===cat.name && !isPromoted(cat.name, d.sub); });
+
+  if(FLAT_CATEGORIES.indexOf(cat.name) > -1){
+    return '<div class="folder-main">'+filegridHTML(sites)+'</div>';
+  }
+
   var subsWithSites = cat.subs.filter(function(sub){
     return !isPromoted(cat.name, sub.name) && sites.some(function(d){ return d.sub===sub.name; });
   });
-  var side = '<nav class="folder-sidebar">';
-  subsWithSites.forEach(function(sub, i){
-    side += '<a class="side-item" data-target="sub-'+i+'">'
-         +  '<span class="side-label">'+esc(sub.name)+'</span>'
-         +  '</a>';
+  var html = '<div class="folder-main"><div class="filegrid">';
+  subsWithSites.forEach(function(sub){
+    html += '<div class="subfolder-tile" data-sub="'+esc(sub.name)+'" data-parent="'+esc(cat.name)+'">'
+         +  '<div class="glyph">'+FOLDER_SVG+'</div>'
+         +  '<span class="fname">'+esc(sub.name)+'</span></div>';
   });
-  side += '</nav>';
-  var main = '<div class="folder-main">';
-  subsWithSites.forEach(function(sub, i){
-    var inSub = sites.filter(function(d){ return d.sub===sub.name; });
-    main += '<div class="subhead" id="sub-'+i+'">'+esc(sub.name)
-         +  ' <span style="font-weight:normal;color:#999">('+inSub.length+')</span></div>';
-    main += '<div class="filegrid">';
-    inSub.forEach(function(d){
-      main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
-           +  faviconHTML(d.url)
-           +  '<span class="fname">'+esc(d.title)+'</span></a>';
-    });
-    main += '</div>';
-  });
-  main += '</div>';
-  return '<div class="folder-split">'+side+main+'</div>';
+  html += '</div></div>';
+  return html;
 }
 
 function openFolder(cat){
   var w = makeWindow('folder:'+cat.name, esc(cat.name), folderBodyHTML(cat));
-  wireSidebar(w);
+  if(FLAT_CATEGORIES.indexOf(cat.name) === -1) wireFolderIndex(w);
 }
 
-function wireSidebar(w){
-  var body = w.querySelector('.window-body');
-  var mainEl = body.querySelector('.folder-main');
-  if(!mainEl) return;
-  body.querySelectorAll('.side-item').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var t = body.querySelector('#'+a.getAttribute('data-target'));
-      if(t){
-        // Measure true position with scroll reset to 0 first — sticky subheads that have
-        // been scrolled past stack on top of one another at the same on-screen coordinate,
-        // so measuring mid-scroll gives a false position for any "buried" target.
-        var saved = mainEl.scrollTop;
-        mainEl.scrollTop = 0;
-        var delta = t.getBoundingClientRect().top - mainEl.getBoundingClientRect().top;
-        mainEl.scrollTop = saved;
-        mainEl.scrollTo({ top: delta - 4, behavior:'smooth' });
-      }
-      body.querySelectorAll('.side-item').forEach(function(s){ s.classList.remove('active'); });
-      a.classList.add('active');
+function wireFolderIndex(w){
+  w.querySelectorAll('.subfolder-tile').forEach(function(t){
+    t.addEventListener('click', function(){
+      openSubcategory(t.getAttribute('data-sub'), t.getAttribute('data-parent'));
     });
   });
 }
 
-// ── PROMOTED SUBCATEGORY WINDOW (just that one subcategory's sites) ──
+// ── SUBCATEGORY WINDOW (just that one subcategory's sites) ──
 function openSubcategory(subName, parentName){
   var sites = DATA.filter(function(d){ return d.cat===parentName && d.sub===subName; });
-  var main = '<div class="folder-main"><div class="filegrid" style="padding-top:14px">';
-  sites.forEach(function(d){
-    main += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
-         +  faviconHTML(d.url)
-         +  '<span class="fname">'+esc(d.title)+'</span></a>';
-  });
-  main += '</div></div>';
+  var main = '<div class="folder-main">'+filegridHTML(sites)+'</div>';
   makeWindow('sub:'+subName, esc(subName), main,
              {width:750, height:530});
 }
