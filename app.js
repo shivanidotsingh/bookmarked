@@ -28,7 +28,7 @@ var FOLDER_SVG =
 // Subcategories promoted to their own desktop icons (removed from parent folders)
 var PROMOTED = [
   { sub:"Colors",                  parent:"Design Resources" },
-  { sub:"Toolkits + Method Cards", parent:"Tools & Community" }
+  { sub:"Toolkits", parent:"Tools & Community" }
 ];
 function isPromoted(catName, subName){
   return PROMOTED.some(function(p){ return p.parent===catName && p.sub===subName; });
