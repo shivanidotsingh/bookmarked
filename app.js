@@ -1,4 +1,3 @@
-// ── bookmarked app.js — System 7 desktop ──
 // Reads DATA + CATS from data.js
 
 function slug(s){ return s.replace(/[^A-Za-z]/g,''); }
