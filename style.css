@@ -81,7 +81,7 @@ body{
 .folder-split{display:flex;height:100%;}
 .folder-sidebar{
   width:172px;flex:none;overflow-y:auto;background:#ededed;
-  border-right:1px solid #aaa;padding:6px 0;
+  border-left:1px solid #aaa;border-right:1px solid #aaa;padding:6px 0;
 }
 .side-item{
   display:flex;align-items:center;padding:6px 12px;
