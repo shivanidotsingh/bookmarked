@@ -22,6 +22,8 @@ var DATA = [
     "label":"riso.lfesp.me", "cat":"Design Resources", "sub":"Colors" },
     { "url":"https://www.designshifts.org/", "title":"Design Shifts",
     "label":"designshifts.org", "cat":"Design Resources", "sub":"Toolkits + Method Cards"  },
+      { "url":"https://aeo.ooo/tools/empathy", "title":"Understanding biases",
+    "label":"aeo.ooo/tools/empathy", "cat":"Design Resources", "sub":"Toolkits + Method Cards"  },
   
   { "url":"https://javier.xyz/cohesive-colors", "title":"Cohesive Colors",
     "label":"cohesive-colors", "cat":"Design Resources", "sub":"Colors" },
