@@ -48,7 +48,10 @@ body{
   display:flex;flex-direction:column;overflow:hidden;
   min-width:300px;min-height:200px;
   resize:both;
+  filter:brightness(1);
+  transition:filter 0.15s ease;
 }
+.window:not(.active){filter:brightness(0.88);}
 .title-bar{
   height:28px;border-bottom:1px solid #000;
   display:flex;align-items:center;gap:8px;padding:0 8px;
@@ -71,6 +74,8 @@ body{
   order:1;font-weight:bold;font-size:14px;color:#fff;
   background:transparent;padding:0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
+.crumb-back{cursor:pointer;text-decoration:underline;}
+.crumb-back:hover{color:#cfe0ff;}
 .title-count{
   order:2;margin-left:auto;color:#ccc;background:transparent;
   padding:0 4px;white-space:nowrap;font-size:13px;
@@ -99,7 +104,7 @@ body{
 .subfolder-tile:hover .fname{color:#1c5fd6;text-decoration:underline;}
 .favicon-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;}
 .favicon-wrap::after{
-  content:"⚘︎";display:none;font-size:18px;color:#000;line-height:1;
+  content:"🌻";display:none;font-size:18px;line-height:1;
 }
 .favicon-wrap:has(img.broken)::after{display:flex;}
 .favicon-wrap:has(img.broken) img{display:none;}
