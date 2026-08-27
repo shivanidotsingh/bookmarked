@@ -184,8 +184,7 @@ var DATA = [
     "label":"diagram.website", "cat":"Pass Time", "sub":"Site of Sites" },
   { "url":"https://digitalconfidence.design/", "title":"Designing for Digital Confidence",
     "label":"digitalconfidence.design", "cat":"Tools & Community", "sub":"Toolkits" },
-  { "url":"https://discord.gg/KvJbW74k", "title":"Design Buddies Discord",
-    "label":"discord.gg", "cat":"Tools & Community", "sub":"design communities" },
+  
   { "url":"https://www.doc.cc/", "title":"DOC",
     "label":"doc.cc", "cat":"Design References", "sub":"Design Theory" },
   { "url":"https://docs.google.com/spreadsheets/d/16N5WYfoGiJfI496ybNYqQdgK0_hqoCuGcDRD2Kz00xE/edit#gid=1955919512", "title":"NN/g Customer Journey Mapping Template",
