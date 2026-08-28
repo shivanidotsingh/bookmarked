@@ -1,3 +1,4 @@
+// ── bookmarked app.js — System 7 desktop ──
 // Reads DATA + CATS from data.js
 
 function slug(s){ return s.replace(/[^A-Za-z]/g,''); }
@@ -27,8 +28,8 @@ var FOLDER_SVG =
 
 // Subcategories promoted to their own desktop icons (removed from parent folders)
 var PROMOTED = [
-  { sub:"Colors",                  parent:"Design Resources" },
-  { sub:"Toolkits", parent:"Tools & Community" }
+  { sub:"Colors",   parent:"Design Resources" },
+  { sub:"Toolkits", parent:"Tools & Collaborate" }
 ];
 function isPromoted(catName, subName){
   return PROMOTED.some(function(p){ return p.parent===catName && p.sub===subName; });
@@ -178,7 +179,11 @@ function makeWindowDraggable(w, handle){
 
 // Categories with few enough subcategories that grouping doesn't earn its keep —
 // these open as one plain grid of every site in the category, no subfolders.
-var FLAT_CATEGORIES = ["Learn & Collaborate"];
+var FLAT_CATEGORIES = ["Learning & Community"];
+// Flat categories are otherwise ungrouped, but a few specific subcategories still
+// get their own subfolder tile within that flat grid (click to open, same as a
+// regular nested category's subfolder — just living inside a mostly-flat one).
+var NESTED_EXCEPTIONS = { "Learning & Community": ["Zero Waste Resources"] };
 
 // Shared tile-grid renderer: one favicon+title tile per site, used by both
 // flat-category windows and subcategory windows.
@@ -194,13 +199,29 @@ function filegridHTML(sites){
 }
 
 // ── FOLDER WINDOW ──
-// Flat categories: a single ungrouped grid of every site.
+// Flat categories: an ungrouped grid of every site, except any NESTED_EXCEPTIONS
+// subs, which appear as a clickable subfolder tile within that same grid instead.
 // Nested categories: a grid of subfolder tiles, each opening its own subcategory window.
 function folderBodyHTML(cat){
   var sites = DATA.filter(function(d){ return d.cat===cat.name && !isPromoted(cat.name, d.sub); });
 
   if(FLAT_CATEGORIES.indexOf(cat.name) > -1){
-    return '<div class="folder-main">'+filegridHTML(sites)+'</div>';
+    var nestedSubs = NESTED_EXCEPTIONS[cat.name] || [];
+    var flatSites = sites.filter(function(d){ return nestedSubs.indexOf(d.sub) === -1; });
+    var html = '<div class="folder-main"><div class="filegrid">';
+    nestedSubs.forEach(function(subName){
+      if(!sites.some(function(d){ return d.sub===subName; })) return;
+      html += '<div class="subfolder-tile" data-sub="'+esc(subName)+'" data-parent="'+esc(cat.name)+'">'
+           +  '<div class="glyph">'+FOLDER_SVG+'</div>'
+           +  '<span class="fname">'+esc(subName)+'</span></div>';
+    });
+    flatSites.forEach(function(d){
+      html += '<a class="file" href="'+esc(d.url)+'" target="_blank" rel="noopener" title="'+esc(d.label)+'">'
+           +  faviconHTML(d.url)
+           +  '<span class="fname">'+esc(d.title)+'</span></a>';
+    });
+    html += '</div></div>';
+    return html;
   }
 
   var subsWithSites = cat.subs.filter(function(sub){
@@ -218,7 +239,9 @@ function folderBodyHTML(cat){
 
 function openFolder(cat){
   var w = makeWindow('folder:'+cat.name, esc(cat.name), folderBodyHTML(cat));
-  if(FLAT_CATEGORIES.indexOf(cat.name) === -1) wireFolderIndex(w, cat);
+  var isFlat = FLAT_CATEGORIES.indexOf(cat.name) > -1;
+  var hasNestedTiles = isFlat && (NESTED_EXCEPTIONS[cat.name] || []).length > 0;
+  if(!isFlat || hasNestedTiles) wireFolderIndex(w, cat);
 }
 
 function wireFolderIndex(w, cat){
