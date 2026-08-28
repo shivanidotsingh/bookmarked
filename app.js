@@ -208,6 +208,10 @@ function folderBodyHTML(cat){
   if(FLAT_CATEGORIES.indexOf(cat.name) > -1){
     var nestedSubs = NESTED_EXCEPTIONS[cat.name] || [];
     var flatSites = sites.filter(function(d){ return nestedSubs.indexOf(d.sub) === -1; });
+    // Group by sub (in the order subs are declared in CATS) so related sites sit
+    // next to each other — an "invisible" grouping with no visible header per group.
+    var subOrder = cat.subs.map(function(s){ return s.name; });
+    flatSites.sort(function(a, b){ return subOrder.indexOf(a.sub) - subOrder.indexOf(b.sub); });
     var html = '<div class="folder-main"><div class="filegrid">';
     nestedSubs.forEach(function(subName){
       if(!sites.some(function(d){ return d.sub===subName; })) return;
