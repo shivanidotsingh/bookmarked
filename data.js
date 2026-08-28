@@ -475,8 +475,7 @@ var DATA = [
     "label":"openai.com", "cat":"Design Resources", "sub":"Image Generation" },
   { "url":"https://optimism.museum/", "title":"Museum of Optimism",
     "label":"optimism.museum", "cat":"Pass Time", "sub":"Cats, Poetry and Joy" },
-  { "url":"http://ourownthing.co.uk/gradpad.html", "title":"GradPad",
-    "label":"ourownthing.co.uk", "cat":"Design Resources", "sub":"Colors" },
+
   { "url":"https://pageflows.com/ios/", "title":"Page Flows",
     "label":"pageflows.com", "cat":"Design References", "sub":"Interface Patterns" },
     { "url":"https://refero.design/", "title":"Design Research and References",
