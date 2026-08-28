@@ -82,8 +82,7 @@ var DATA = [
     "label":"bigtimer.net", "cat":"Tools & Collaborate", "sub":"Timers" },
   { "url":"https://haikei.app/generators/", "title":"Haikei",
     "label":"haikei.app", "cat":"Tools & Collaborate", "sub":"Generators" },
-  { "url":"https://www.blobmaker.app/", "title":"Blobmaker",
-    "label":"blobmaker.app", "cat":"Tools & Collaborate", "sub":"Generators" },
+  
   { "url":"https://blot.im/examples", "title":"Examples - Blot",
     "label":"blot.im", "cat":"Tools & Collaborate", "sub":"Publish a website, blog" },
   { "url":"https://www.bludit.com/", "title":"Bludit - Flat-File CMS",
