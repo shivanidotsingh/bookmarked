@@ -706,8 +706,7 @@ var DATA = [
     "label":"virsa.info", "cat":"Pass Time", "sub":"typology, collections" },
   { "url":"https://www.visualcapitalist.com/", "title":"Visual Capitalist",
     "label":"visualcapitalist.com", "cat":"Design References", "sub":"Data Visualized" },
-  { "url":"https://wastebased.co/", "title":"Wastebased",
-    "label":"wastebased.co", "cat":"Learn & Collaborate", "sub":"Zero Waste Resources" },
+
   { "url":"https://www.watchosicongallery.com/", "title":"watchOS Icon Gallery",
     "label":"watchosicongallery.com", "cat":"Design Resources", "sub":"Icons & Symbology" },
   { "url":"https://weareskribbl.com/", "title":"Skribbl",
