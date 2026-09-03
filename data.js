@@ -77,7 +77,7 @@ var DATA = [
   { "url":"https://berlintransitmap.de/", "title":"New Berlin rapid transit route map",
     "label":"berlintransitmap.de", "cat":"Design References", "sub":"Maps" },
   { "url":"https://www.bigtimer.net/?minutes=10&repeat=false", "title":"Big Timer",
-    "label":"bigtimer.net", "cat":"Tools & Collaborate", "sub":"Timers" },
+    "label":"bigtimer.net", "cat":"Tools & Collaborate", "sub":"Work from anywhere" },
   { "url":"https://haikei.app/generators/", "title":"Haikei",
     "label":"haikei.app", "cat":"Tools & Collaborate", "sub":"Generators" },
   { "url":"https://www.blobmaker.app/", "title":"Blobmaker",
@@ -139,7 +139,7 @@ var DATA = [
   { "url":"https://creativemornings.com/", "title":"CreativeMornings",
     "label":"creativemornings.com", "cat":"Learning & Community", "sub":"design communities" },
   { "url":"https://www.daily.place/", "title":"daily.place",
-    "label":"daily.place", "cat":"Tools & Collaborate", "sub":"Timers" },
+    "label":"daily.place", "cat":"Tools & Collaborate", "sub":"Work from anywhere" },
   { "url":"https://datavizproject.com/", "title":"Data Viz Project",
     "label":"datavizproject.com", "cat":"Design References", "sub":"Data Visualized" },
   { "url":"https://www.dayroselane.com/hydrants", "title":"The Hydrant Directory",
@@ -269,7 +269,7 @@ var DATA = [
   { "url":"http://gradient.horse/", "title":"gradient.horse",
     "label":"gradient.horse", "cat":"Tools & Collaborate", "sub":"Drawing, Scrawling" },
   { "url":"https://www.photopea.com/", "title":"Photoshop Online",
-    "label":"photopea.com", "cat":"Tools & Collaborate", "sub":"Miscellaneous 🍌 🍌" },
+    "label":"photopea.com", "cat":"Tools & Collaborate", "sub":"Miscellaneous 🍌" },
   { "url":"https://www.remove.bg/", "title":"Remove Background",
     "label":"remove.bg", "cat":"Tools & Collaborate", "sub":"Miscellaneous 🍌" },
   { "url":" https://alternativeto.net/", "title":"Crowdsourced Alternate Tools",
@@ -737,7 +737,7 @@ var DATA = [
   { "url":"https://searchingforbirds.visualcinnamon.com/", "title":"Searching for Birds",
     "label":"searchingforbirds.visualcinnamon.com", "cat":"Pass Time", "sub":"Birds, Flowers" },
   { "url":"https://shoulditbeameeting.com/#/", "title":"Should It Be a Meeting?",
-    "label":"shoulditbeameeting.com", "cat":"Tools & Collaborate", "sub":"Should it be a meeting?" },
+    "label":"shoulditbeameeting.com", "cat":"Tools & Collaborate", "sub":"Work from anywhere" },
 ];
 
 var CATS = [
@@ -783,8 +783,6 @@ var CATS = [
       { "name":"Miscellaneous 🍌", "emoji":"🍌" },
       { "name":"Contracts, Emails", "emoji":"🤝" },
       { "name":"Work from anywhere", "emoji":"🏡" },
-      { "name":"Should it be a meeting?", "emoji":"🙆" },
-      { "name":"Timers", "emoji":"⏳" },
   ] },
   { "name":"Learning & Community", "emoji":"🤝", "subs":[
       { "name":"design communities", "emoji":"#️⃣" },
