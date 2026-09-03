@@ -183,7 +183,7 @@ var FLAT_CATEGORIES = ["Learning & Community"];
 // Flat categories are otherwise ungrouped, but a few specific subcategories still
 // get their own subfolder tile within that flat grid (click to open, same as a
 // regular nested category's subfolder — just living inside a mostly-flat one).
-var NESTED_EXCEPTIONS = { "Learning & Community": ["Zero Waste Resources"] };
+var NESTED_EXCEPTIONS = { "Learning & Community": ["Sustainable by Design"] };
 
 // Shared tile-grid renderer: one favicon+title tile per site, used by both
 // flat-category windows and subcategory windows.
@@ -365,8 +365,35 @@ function renderSheet(){
 }
 
 // ── STUMBLE ──
+// URLs to skip when stumbling — sites that open to a signup/login wall rather
+// than actual content. Add to this as you notice one; there's no automatic way
+// to detect this, so it only grows as you flag them.
+var STUMBLE_EXCLUDE = [
+];
+// Whole subcategories to skip when stumbling (matched against the sub field).
+var STUMBLE_EXCLUDE_SUBS = [
+  "Make a website, blog"
+];
+// Whole categories to skip when stumbling (matched against the cat field).
+var STUMBLE_EXCLUDE_CATS = [
+];
+// Categories that should come up more often than others. Each site in a listed
+// category gets this many entries in the draw instead of 1 — e.g. 3 means a
+// Pass Time site is 3x as likely to be picked as an equivalent non-priority site.
+var STUMBLE_PRIORITY_CATS = {
+  "Pass Time": 3
+};
+
 function stumble(){
-  var d = DATA[Math.floor(Math.random()*DATA.length)];
+  var pool = [];
+  DATA.forEach(function(d){
+    if(STUMBLE_EXCLUDE.indexOf(d.url) > -1) return;
+    if(STUMBLE_EXCLUDE_SUBS.indexOf(d.sub) > -1) return;
+    if(STUMBLE_EXCLUDE_CATS.indexOf(d.cat) > -1) return;
+    var weight = STUMBLE_PRIORITY_CATS[d.cat] || 1;
+    for(var i=0; i<weight; i++) pool.push(d);
+  });
+  var d = pool[Math.floor(Math.random()*pool.length)];
   window.open(d.url,'_blank');
 }
 
