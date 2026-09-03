@@ -266,6 +266,10 @@ var DATA = [
     "label":"gradient.horse", "cat":"Tools & Collaborate", "sub":"Drawing, Scrawling" },
   { "url":"https://www.photopea.com/", "title":"Photoshop Online",
     "label":"photopea.com", "cat":"Tools & Collaborate", "sub":"Miscellaneous 🍌" },
+
+    { "url":"https://counterdefaults.aixdesign.co/", "title":"Counter-Defaults",
+    "label":"counterdefaults.aixdesign.co", "cat":"Tools & Collaborate", "sub":"Miscellaneous 🍌" },
+  
   { "url":"https://www.remove.bg/", "title":"Remove Background",
     "label":"remove.bg", "cat":"Tools & Collaborate", "sub":"Miscellaneous 🍌" },
   { "url":" https://alternativeto.net/", "title":"Crowdsourced Alternate Tools",
