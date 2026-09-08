@@ -79,7 +79,7 @@ desktop.appendChild(sheetIcon);
 // Rainbow shuffle icon (top-left)
 var shuf = document.createElement('div');
 shuf.className='icon icon-stumble';
-shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">random site</div>';
+shuf.innerHTML='<div class="glyph">🫰🏽</div><div class="lbl">random site</div>';
 shuf.style.left='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
