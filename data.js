@@ -40,12 +40,15 @@ var DATA = [
     "label":"app.streamlineicons.com", "cat":"Design Resources", "sub":"Icons & Symbology" },
   { "url":"https://apps.npr.org/joy-generator/#story=menu&page=0", "title":"NPR Joy Generator",
     "label":"apps.npr.org", "cat":"Pass Time", "sub":"Cats, Poetry and Joy" },
+
+    { "url":"https://neal.fun/wiki-spy/", "title":"Wiki Collages",
+    "label":"neal.fun/wiki-spy/", "cat":"Pass Time", "sub":"typology, collections" },
+  
   { "url":"https://arc.net/", "title":"Arc from The Browser Company",
     "label":"arc.net", "cat":"Tools & Collaborate", "sub":"Notes, browsers" },
   { "url":"https://www.are.na/", "title":"Are.na",
     "label":"are.na", "cat":"Tools & Collaborate", "sub":"Notes, browsers" },
-  { "url":"https://www.arkives.club/", "title":"Arkives Club",
-    "label":"arkives.club", "cat":"Pass Time", "sub":"Site of Sites" },
+
   { "url":"https://archive.org/", "title":"The Internet Archive",
     "label":"archive.org", "cat":"Pass Time", "sub":"Site of Sites" },
   { "url":"https://www.artefactgroup.com/resources/the-tarot-cards-of-tech/", "title":"The Tarot Cards of Tech",
