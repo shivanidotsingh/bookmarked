@@ -57,6 +57,10 @@ var DATA = [
     "label":"artofsymbols.com", "cat":"Design Resources", "sub":"Icons & Symbology" },
   { "url":"https://www.artofthetitle.com/", "title":"Art of the Title",
     "label":"artofthetitle.com", "cat":"Pass Time", "sub":"Film things" },
+
+  { "url":"https://moviescenemap.com/", "title":"Movie Scene Map",
+    "label":"moviescenemap.com", "cat":"Pass Time", "sub":"Film things" },
+  
   { "url":"https://www.artofvisualdesign.com/aesthetic-quiz", "title":"Design Constellation Quiz",
     "label":"artofvisualdesign.com/aesthetic-quiz", "cat":"Design Resources", "sub":"Exercise, Quizzes" },
   { "url":"https://www.artofvisualdesign.com/fontguessr", "title":"fontguessr",
@@ -616,7 +620,7 @@ var DATA = [
     "label":"thenostalgiamachine.com", "cat":"Pass Time", "sub":"TV, Radio" },
   { "url":"https://thenounproject.com/", "title":"Noun Project",
     "label":"thenounproject.com", "cat":"Design Resources", "sub":"Icons & Symbology" },
-  { "url":"http://thepoliticsofdesign.com/", "title":"The Politics of Design",
+  { "url":"https://freight.cargo.site/m/C1652215714282715984243917178397/POLITICS-OF-DESIGN.pdf", "title":"The Politics of Design",
     "label":"thepoliticsofdesign.com", "cat":"Design References", "sub":"Design Theory" },
   { "url":"https://thewallyshop.co/", "title":"The Wally Shop",
     "label":"thewallyshop.co", "cat":"Learning & Community", "sub":"Sustainable by Design" },
