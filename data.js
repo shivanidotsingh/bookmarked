@@ -538,8 +538,7 @@ var DATA = [
     "label":"shapes.gallery", "cat":"Design Resources", "sub":"Glyphs and Patterns" },
   { "url":"https://savee.it/", "title":"SAVEE",
     "label":"savee.it", "cat":"Tools & Collaborate", "sub":"Moodboards, wormholes" },
-  { "url":"http://savethesounds.info/", "title":"Museum of Endangered Sounds",
-    "label":"savethesounds.info", "cat":"Pass Time", "sub":"Sounds" },
+  
   { "url":"https://scaleofuniverse.com/", "title":"Scale of the Universe",
     "label":"scaleofuniverse.com", "cat":"Design Resources", "sub":"Scales and Grids" },
   { "url":"https://science.nasa.gov/specials/your-name-in-landsat", "title":"Your Name in Landsat",
