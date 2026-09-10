@@ -1,4 +1,3 @@
-// ── bookmarked app.js — System 7 desktop ──
 // Reads DATA + CATS from data.js
 
 function slug(s){ return s.replace(/[^A-Za-z]/g,''); }
@@ -19,14 +18,14 @@ function faviconHTML(url){
        + '</span>';
 }
 
-// Flat manila-yellow folder (inline SVG, scalable, flat fill, no outline, no gradients)
+// Folders
 var FOLDER_SVG =
   '<svg class="folder-svg" viewBox="0 0 48 40" width="53" height="44" xmlns="http://www.w3.org/2000/svg">'
   + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="#e8b43a"/>'
   + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="#ffdf80"/>'
   + '</svg>';
 
-// Subcategories promoted to their own desktop icons (removed from parent folders)
+// Subcategories 
 var PROMOTED = [
   { sub:"Colors",   parent:"Design Resources" },
   { sub:"Toolkits", parent:"Tools & Collaborate" }
@@ -48,7 +47,7 @@ function nextRightSlot(){
   return y;
 }
 
-// Category folders, with any promoted subcategories placed beside their parent (same row, one column right)
+// Category folders
 function makeDesktopIcon(x, y, className, glyphHTML, label, onOpen){
   var el = document.createElement('div');
   el.className = 'icon '+className;
@@ -67,19 +66,19 @@ CATS.forEach(function(cat){
   });
 });
 
-// Spreadsheet icon
+// Spreadsheet icon — paired with Stumble at top-right, not in the folder column
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">shivani\'s bookmarks</div>';
-sheetIcon.style.left = startX+'px';
-sheetIcon.style.top  = nextRightSlot()+'px';
+sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">Search</div>';
+sheetIcon.style.right = '138px';
+sheetIcon.style.top = '40px';
 makeIconDraggable(sheetIcon, openSheet);
 desktop.appendChild(sheetIcon);
 
 // Rainbow shuffle icon (top-right, mirrors the folder column now being on the left)
 var shuf = document.createElement('div');
 shuf.className='icon icon-stumble';
-shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">random site</div>';
+shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">Stumble</div>';
 shuf.style.right='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
@@ -403,10 +402,32 @@ desktop.addEventListener('mousedown', function(e){
     document.querySelectorAll('.icon').forEach(function(n){n.classList.remove('selected');});
 });
 
-// mobile notice modal close button
-var mobileNoteClose = document.getElementById('mobile-note-close');
-if(mobileNoteClose){
-  mobileNoteClose.addEventListener('click', function(){
-    document.getElementById('mobile-note').style.display = 'none';
-  });
+// mobile notice modal: no dismiss, just a stumble CTA
+var mobileStumbleBtn = document.getElementById('mobile-stumble-btn');
+if(mobileStumbleBtn){
+  mobileStumbleBtn.addEventListener('click', stumble);
 }
+
+// ── DESKTOP LANDING MODAL (once per browser session) ──
+var LANDING_SEEN_KEY = 'bookmarked_landing_seen';
+function landingAlreadySeen(){
+  try { return sessionStorage.getItem(LANDING_SEEN_KEY) === '1'; }
+  catch(e){ return false; } // private-browsing storage errors: just show it every time, harmless
+}
+function markLandingSeen(){
+  try { sessionStorage.setItem(LANDING_SEEN_KEY, '1'); } catch(e){}
+}
+function showLandingOrSheet(){
+  if(landingAlreadySeen()){ openSheet(); return; }
+  document.getElementById('landing-modal').style.display = 'flex';
+}
+function dismissLanding(){
+  markLandingSeen();
+  document.getElementById('landing-modal').style.display = 'none';
+}
+var landingStumbleBtn = document.getElementById('landing-stumble-btn');
+var landingBrowseBtn  = document.getElementById('landing-browse-btn');
+var landingDismiss    = document.getElementById('landing-dismiss-link');
+if(landingStumbleBtn) landingStumbleBtn.addEventListener('click', function(){ dismissLanding(); stumble(); });
+if(landingBrowseBtn)  landingBrowseBtn.addEventListener('click', function(){ dismissLanding(); openSheet(); });
+if(landingDismiss)    landingDismiss.addEventListener('click', function(e){ e.preventDefault(); dismissLanding(); });
