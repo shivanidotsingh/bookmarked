@@ -28,7 +28,7 @@ var FOLDER_SVG =
 // Subcategories
 var PROMOTED = [
   { sub:"Colors",        parent:"Design Resources" },
-  { sub:"Toolkits",      parent:"Tools & Collaborate" },
+  { sub:"Toolkits",      parent:"Design Tools" },
   { sub:"eyecandy",      parent:"Design References" },
   { sub:"Site of Sites", parent:"Pass Time" }
 ];
