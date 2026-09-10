@@ -302,7 +302,6 @@ function sheetBodyHTML(){
 function openSheet(){
   var w = makeWindow('sheet', 'shivani\'s bookmarks', sheetBodyHTML(),
                      {width:750, height:530, bodyClass:'sheet-body', count:''});
-  w.style.left = '120px';  // shift right to avoid covering desktop icons
   var f=w.querySelector('#sheet-filters');
   if(f && !f.dataset.built){
     CATS.forEach(function(c){
@@ -408,25 +407,13 @@ if(mobileStumbleBtn){
 }
 
 // ── DESKTOP LANDING MODAL ──
-var LANDING_SEEN_KEY = 'bookmarked_landing_seen';
-function landingAlreadySeen(){
-  try { return sessionStorage.getItem(LANDING_SEEN_KEY) === '1'; }
-  catch(e){ return false; } // private-browsing storage errors: just show it every time, harmless
-}
-function markLandingSeen(){
-  try { sessionStorage.setItem(LANDING_SEEN_KEY, '1'); } catch(e){}
-}
 function showLandingOrSheet(){
-  if(landingAlreadySeen()){ openSheet(); return; }
   document.getElementById('landing-modal').style.display = 'flex';
 }
 function dismissLanding(){
-  markLandingSeen();
   document.getElementById('landing-modal').style.display = 'none';
 }
 var landingStumbleBtn = document.getElementById('landing-stumble-btn');
 var landingBrowseBtn  = document.getElementById('landing-browse-btn');
-var landingDismiss    = document.getElementById('landing-dismiss-link');
 if(landingStumbleBtn) landingStumbleBtn.addEventListener('click', function(){ dismissLanding(); stumble(); });
 if(landingBrowseBtn)  landingBrowseBtn.addEventListener('click', function(){ dismissLanding(); openSheet(); });
-if(landingDismiss)    landingDismiss.addEventListener('click', function(e){ e.preventDefault(); dismissLanding(); });
