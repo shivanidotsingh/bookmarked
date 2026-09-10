@@ -18,14 +18,14 @@ function faviconHTML(url){
        + '</span>';
 }
 
-// Folders
+// FOLDERS
 var FOLDER_SVG =
   '<svg class="folder-svg" viewBox="0 0 48 40" width="53" height="44" xmlns="http://www.w3.org/2000/svg">'
   + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="#e8b43a"/>'
   + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="#ffdf80"/>'
   + '</svg>';
 
-// Subcategories 
+// Subcategories
 var PROMOTED = [
   { sub:"Colors",   parent:"Design Resources" },
   { sub:"Toolkits", parent:"Tools & Collaborate" }
@@ -39,7 +39,7 @@ function isPromoted(catName, subName){
 var desktop = document.getElementById('desktop');
 
 // layout: items down the right side, classic Mac style
-var startX = 40, startY = 50, stepY = 86;
+var startX = 40, startY = 50, stepY = 110;
 var iconRow = 0;
 function nextRightSlot(){
   var y = startY + iconRow*stepY;
@@ -47,7 +47,7 @@ function nextRightSlot(){
   return y;
 }
 
-// Category folders
+// Category folders, with any promoted subcategories placed beside their parent (same row, one column right)
 function makeDesktopIcon(x, y, className, glyphHTML, label, onOpen){
   var el = document.createElement('div');
   el.className = 'icon '+className;
@@ -62,11 +62,11 @@ CATS.forEach(function(cat){
   var rowY = nextRightSlot();
   makeDesktopIcon(startX, rowY, 'folder', FOLDER_SVG, cat.name, function(){ openFolder(cat); });
   PROMOTED.filter(function(p){ return p.parent===cat.name; }).forEach(function(p){
-    makeDesktopIcon(startX+110, rowY, 'promoted', FOLDER_SVG, p.sub, function(){ openSubcategory(p.sub, p.parent); });
+    makeDesktopIcon(startX+150, rowY, 'promoted', FOLDER_SVG, p.sub, function(){ openSubcategory(p.sub, p.parent); });
   });
 });
 
-// Spreadsheet icon — paired with Stumble at top-right, not in the folder column
+// SEARCH AND STUMBLE
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
 sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">Search</div>';
@@ -75,7 +75,6 @@ sheetIcon.style.top = '40px';
 makeIconDraggable(sheetIcon, openSheet);
 desktop.appendChild(sheetIcon);
 
-// Rainbow shuffle icon (top-right, mirrors the folder column now being on the left)
 var shuf = document.createElement('div');
 shuf.className='icon icon-stumble';
 shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">Stumble</div>';
@@ -128,7 +127,7 @@ function makeWindow(key, title, bodyHTML, opts){
   var w = document.createElement('div');
   w.className = 'window';
   var offset = (winCount % 6) * 40;
-  w.style.left = (280 + offset) + 'px';
+  w.style.left = (440 + offset) + 'px';
   w.style.top  = (60 + offset) + 'px';
   w.style.width  = (opts.width  || 750) + 'px';
   w.style.height = (opts.height || 530) + 'px';
@@ -408,7 +407,7 @@ if(mobileStumbleBtn){
   mobileStumbleBtn.addEventListener('click', stumble);
 }
 
-// ── DESKTOP LANDING MODAL (once per browser session) ──
+// ── DESKTOP LANDING MODAL ──
 var LANDING_SEEN_KEY = 'bookmarked_landing_seen';
 function landingAlreadySeen(){
   try { return sessionStorage.getItem(LANDING_SEEN_KEY) === '1'; }
