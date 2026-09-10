@@ -21,7 +21,7 @@ function faviconHTML(url){
 
 // Flat manila-yellow folder (inline SVG, scalable, flat fill, no outline, no gradients)
 var FOLDER_SVG =
-  '<svg class="folder-svg" viewBox="0 0 48 40" width="48" height="40" xmlns="http://www.w3.org/2000/svg">'
+  '<svg class="folder-svg" viewBox="0 0 48 40" width="53" height="44" xmlns="http://www.w3.org/2000/svg">'
   + '<path d="M3 9 a3 3 0 0 1 3-3 h11 l4 4 h21 a3 3 0 0 1 3 3 v3 H3 Z" fill="#e8b43a"/>'
   + '<path d="M3 13 h42 a2 2 0 0 1 2 2 v20 a3 3 0 0 1-3 3 H4 a3 3 0 0 1-3-3 V15 a2 2 0 0 1 2-2 Z" fill="#ffdf80"/>'
   + '</svg>';
@@ -40,7 +40,7 @@ function isPromoted(catName, subName){
 var desktop = document.getElementById('desktop');
 
 // layout: items down the right side, classic Mac style
-var startX = window.innerWidth - 130, startY = 50, stepY = 86;
+var startX = 40, startY = 50, stepY = 86;
 var iconRow = 0;
 function nextRightSlot(){
   var y = startY + iconRow*stepY;
@@ -48,7 +48,7 @@ function nextRightSlot(){
   return y;
 }
 
-// Category folders, with any promoted subcategories placed beside their parent (same row, one column left)
+// Category folders, with any promoted subcategories placed beside their parent (same row, one column right)
 function makeDesktopIcon(x, y, className, glyphHTML, label, onOpen){
   var el = document.createElement('div');
   el.className = 'icon '+className;
@@ -63,7 +63,7 @@ CATS.forEach(function(cat){
   var rowY = nextRightSlot();
   makeDesktopIcon(startX, rowY, 'folder', FOLDER_SVG, cat.name, function(){ openFolder(cat); });
   PROMOTED.filter(function(p){ return p.parent===cat.name; }).forEach(function(p){
-    makeDesktopIcon(startX-110, rowY, 'promoted', FOLDER_SVG, p.sub, function(){ openSubcategory(p.sub, p.parent); });
+    makeDesktopIcon(startX+110, rowY, 'promoted', FOLDER_SVG, p.sub, function(){ openSubcategory(p.sub, p.parent); });
   });
 });
 
@@ -76,11 +76,11 @@ sheetIcon.style.top  = nextRightSlot()+'px';
 makeIconDraggable(sheetIcon, openSheet);
 desktop.appendChild(sheetIcon);
 
-// Rainbow shuffle icon (top-left)
+// Rainbow shuffle icon (top-right, mirrors the folder column now being on the left)
 var shuf = document.createElement('div');
 shuf.className='icon icon-stumble';
-shuf.innerHTML='<div class="glyph">🫰🏽</div><div class="lbl">random site</div>';
-shuf.style.left='28px'; shuf.style.top='40px';
+shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">random site</div>';
+shuf.style.right='28px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
 
@@ -129,7 +129,7 @@ function makeWindow(key, title, bodyHTML, opts){
   var w = document.createElement('div');
   w.className = 'window';
   var offset = (winCount % 6) * 40;
-  w.style.left = (90 + offset) + 'px';
+  w.style.left = (280 + offset) + 'px';
   w.style.top  = (60 + offset) + 'px';
   w.style.width  = (opts.width  || 750) + 'px';
   w.style.height = (opts.height || 530) + 'px';
