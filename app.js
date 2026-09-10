@@ -27,8 +27,10 @@ var FOLDER_SVG =
 
 // Subcategories
 var PROMOTED = [
-  { sub:"Colors",   parent:"Design Resources" },
-  { sub:"Toolkits", parent:"Tools & Collaborate" }
+  { sub:"Colors",        parent:"Design Resources" },
+  { sub:"Toolkits",      parent:"Tools & Collaborate" },
+  { sub:"eyecandy",      parent:"Design References" },
+  { sub:"Site of Sites", parent:"Pass Time" }
 ];
 function isPromoted(catName, subName){
   return PROMOTED.some(function(p){ return p.parent===catName && p.sub===subName; });
@@ -70,7 +72,7 @@ CATS.forEach(function(cat){
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
 sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">Search</div>';
-sheetIcon.style.right = '138px';
+sheetIcon.style.left = (window.innerWidth - 234) + 'px';
 sheetIcon.style.top = '40px';
 makeIconDraggable(sheetIcon, openSheet);
 desktop.appendChild(sheetIcon);
@@ -78,7 +80,7 @@ desktop.appendChild(sheetIcon);
 var shuf = document.createElement('div');
 shuf.className='icon icon-stumble';
 shuf.innerHTML='<div class="glyph">🔮</div><div class="lbl">Stumble</div>';
-shuf.style.right='28px'; shuf.style.top='40px';
+shuf.style.left = (window.innerWidth - 124) + 'px'; shuf.style.top='40px';
 makeIconDraggable(shuf, stumble);
 desktop.appendChild(shuf);
 
