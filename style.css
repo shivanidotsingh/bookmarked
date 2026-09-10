@@ -30,10 +30,10 @@ body{
   padding:4px;
 }
 .icon .glyph{
-  font-size:34px;line-height:1;width:52px;height:46px;
+  font-size:34px;line-height:1;width:57px;height:51px;
   display:flex;align-items:center;justify-content:center;
 }
-.folder-svg{width:48px;height:40px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.3));}
+.folder-svg{width:53px;height:44px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,0.3));}
 .icon .lbl{
   font-size:13px;color:#fff;
   padding:0 3px;max-width:96px;line-height:1.25;
