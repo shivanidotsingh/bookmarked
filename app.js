@@ -68,10 +68,10 @@ CATS.forEach(function(cat){
   });
 });
 
-// SEARCH AND STUMBLE
+// BROWSE AND STUMBLE
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">Search</div>';
+sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">Browse</div>';
 sheetIcon.style.left = (window.innerWidth - 234) + 'px';
 sheetIcon.style.top = '40px';
 makeIconDraggable(sheetIcon, openSheet);
