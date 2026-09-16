@@ -28,7 +28,7 @@ var FOLDER_SVG =
 // Subcategories
 var PROMOTED = [
   { sub:"Colors",        parent:"Design Resources" },
-  { sub:"Toolkits",      parent:"Design Tools" },
+  { sub:"Toolkits",      parent:"Tools & Collaborate" },
   { sub:"eyecandy",      parent:"Design References" },
   { sub:"Site of Sites", parent:"Pass Time" }
 ];
@@ -68,10 +68,10 @@ CATS.forEach(function(cat){
   });
 });
 
-// BROWSE AND STUMBLE
+// SEARCH AND STUMBLE
 var sheetIcon = document.createElement('div');
 sheetIcon.className='icon';
-sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">Browse</div>';
+sheetIcon.innerHTML='<div class="glyph">🔍</div><div class="lbl">Search</div>';
 sheetIcon.style.left = (window.innerWidth - 234) + 'px';
 sheetIcon.style.top = '40px';
 makeIconDraggable(sheetIcon, openSheet);
@@ -417,5 +417,5 @@ function dismissLanding(){
 }
 var landingStumbleBtn = document.getElementById('landing-stumble-btn');
 var landingBrowseBtn  = document.getElementById('landing-browse-btn');
-if(landingStumbleBtn) landingStumbleBtn.addEventListener('click', function(){ dismissLanding(); stumble(); });
+if(landingStumbleBtn) landingStumbleBtn.addEventListener('click', function(){ stumble(); });
 if(landingBrowseBtn)  landingBrowseBtn.addEventListener('click', function(){ dismissLanding(); openSheet(); });
