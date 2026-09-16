@@ -129,6 +129,9 @@ var DATA = [
     "label":"circulardesignguide.com", "cat":"Learning & Community", "sub":"Sustainable by Design" },
   { "url":"https://climatetechatlas.com/", "title":"Climate Tech Atlas",
     "label":"climatetechatlas.com", "cat":"Design References", "sub":"Data Visualized" },
+  { "url":"https://ourworldindata.org/technological-change", "title":"Tech Data",
+    "label":"ourworldindata.org", "cat":"Design References", "sub":"Data Visualized" },
+  
   { "url":"https://codeofdesign.org/", "title":"Code of Design",
     "label":"codeofdesign.org", "cat":"Design References", "sub":"Guides, Codes, Manifestos" },
   { "url":"https://colorleap.app/dates", "title":"Color Leap",
@@ -173,6 +176,9 @@ var DATA = [
     "label":"designkit.org", "cat":"Design Tools", "sub":"Toolkits" },
   { "url":"https://www.designspells.com/", "title":"Design Spells",
     "label":"designspells.com", "cat":"Design References", "sub":"eyecandy" },
+  { "url":"https://conceptseeker.com/previous-issues", "title":"Design Concept Newsletter",
+    "label":"conceptseeker.com", "cat":"Design References", "sub":"eyecandy" },
+  
   { "url":"https://www.designsystemchecklist.com/", "title":"Design System Checklist",
     "label":"designsystemchecklist.com", "cat":"Design References", "sub":"A11y and checklists" },
   { "url":"https://designtitles.com/", "title":"Design Titles",
