@@ -34,7 +34,7 @@ var DATA = [
     "label":"alpha.womp.com", "cat":"Design Resources", "sub":"3D" },
   { "url":"https://app.diagrams.net/", "title":"Flowchart Maker & Online Diagram Software",
     "label":"app.diagrams.net", "cat":"Design Resources", "sub":"Boards, Charts, Collages" },
-  { "url":"https://lucid.co/lucidchart", "title":"Log In",
+  { "url":"https://lucid.co/lucidchart", "title":"Lucid charts",
     "label":"lucid.co", "cat":"Design Resources", "sub":"Boards, Charts, Collages" },
   { "url":"https://app.streamlineicons.com/illustrations-multicolor", "title":"Streamline 3.0",
     "label":"app.streamlineicons.com", "cat":"Design Resources", "sub":"Icons & Symbology" },
