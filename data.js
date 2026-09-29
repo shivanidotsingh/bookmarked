@@ -469,6 +469,10 @@ var DATA = [
     "label":"oldmapsonline.org", "cat":"Design References", "sub":"Maps" },
   { "url":"https://onthegrid.city/#cities", "title":"On the Grid",
     "label":"onthegrid.city", "cat":"Learning & Community", "sub":"Local" },
+  
+  { "url":" https://www.corner.inc", "title":"Corner",
+    "label":"corner.inc", "cat":"Learning & Community", "sub":"Local" },
+ 
   { "url":"https://optimism.museum/", "title":"Museum of Optimism",
     "label":"optimism.museum", "cat":"Pass Time", "sub":"Cats, Poetry and Joy" },
   { "url":"https://pageflows.com/ios/", "title":"Page Flows",
