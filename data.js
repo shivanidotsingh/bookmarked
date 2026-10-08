@@ -653,6 +653,10 @@ var DATA = [
     "label":"tooooools.app", "cat":"Design Tools", "sub":"Miscellaneous 🍌" },
   { "url":"https://everywhere.tools/", "title":"open source tools for designers",
     "label":"everywhere.tools", "cat":"Design Tools", "sub":"Miscellaneous 🍌" },
+  
+  { "url":"https://getartcraft.com/", "title":"open source tools for designers",
+    "label":"getcraft.com", "cat":"Design Tools", "sub":"Miscellaneous 🍌" },
+  
   { "url":"https://www.traveloka.com/special/urban-scrawl", "title":"Urban Scrawl",
     "label":"traveloka.com", "cat":"Design Tools", "sub":"Drawing, Scrawling" },
   { "url":"https://www.trendlist.org/", "title":"Trend List",
