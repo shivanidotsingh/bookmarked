@@ -44,8 +44,6 @@ var DATA = [
     { "url":"https://neal.fun/wiki-spy/", "title":"Wiki Collages",
     "label":"neal.fun/wiki-spy/", "cat":"Pass Time", "sub":"typology, collections" },
   
-  { "url":"https://arc.net/", "title":"Arc from The Browser Company",
-    "label":"arc.net", "cat":"Design Tools", "sub":"Knowledge Management" },
   { "url":"https://www.are.na/", "title":"Are.na",
     "label":"are.na", "cat":"Design Tools", "sub":"Knowledge Management" },
 
